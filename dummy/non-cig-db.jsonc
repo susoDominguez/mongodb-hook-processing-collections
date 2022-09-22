@@ -1,0 +1,94 @@
+{
+    "parameter" : "hypertension",
+    "cigInvolved" : [ 
+        "CIG-HT"
+    ],
+    "dataPaths" : [ 
+        {
+            "label" : "HT_code",
+            "Jpath" : "context.hypertension.code.coding[system='http://snomed.info/sct'].code",
+            "typeOf" : "string",
+            "defaultVal" : undefined,
+            "required" : true
+        }
+    ],
+    "actions" : [ 
+        {
+            "action" : "subClassOf",
+            "details" : {
+                "codeSystemId" : "SNOMEDCT",
+                "arg2" : "ancestor_conceptId",
+                "arg1" : "HT_code"
+            }
+        }
+    ],
+    "output" : [ 
+        {
+            "queryArgs" : {
+                "ancestor_conceptId" : [ 
+                    "38341003"
+                ]
+            },
+            "outcome" : [ 
+                "CIG-HT"
+            ]
+        }, 
+        {
+            "queryArgs" : {
+                "ancestor_conceptId" : [ 
+                    "hols"
+                ]
+            },
+            "outcome" : [ 
+                "CIG-NON-HT"
+            ]
+        }
+    ]
+}
+{
+    "parameter" : "age",
+    "cigInvolved" : [],
+    "dataPaths" : [ 
+        {
+            "label" : "birthDate",
+            "Jpath" : "context.birthDate",
+            "typeOf" : "string",
+            "defaultVal" : undefined,
+            "required" : false
+        }
+    ],
+    "actions" : [ 
+        {
+            "action" : "function",
+            "details" : {
+                "symbol" : "calculate_age",
+                "arg1" : "birthDate"
+            }
+        }
+    ],
+    "output" : []
+}
+{
+    "parameter" : "findRef",
+    "cigInvolved" : [],
+    "dataPaths" : [ 
+        {
+            "label" : "selections",
+            "Jpath" : "context.selections",
+            "typeOf" : "string",
+            "defaultVal" : [],
+            "required" : true
+        }
+    ],
+    "actions" : [ 
+        {
+            "action" : "findRef",
+            "details" : {
+                "Jpath" : "context.draftOrders.entry.resource[resourceType='var1' and id='var2'].code.coding.code",
+                "typeOf" : "string",
+                "arg1" : "selections"
+            }
+        }
+    ],
+    "output" : []
+}
