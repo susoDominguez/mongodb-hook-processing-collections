@@ -9,7 +9,7 @@
             "Jpath" : "context.patientId",
             "typeOf" : "string",
             "defaultVal" : undefined,
-            "required" : false
+            "required" : true
         }
     ],
     "actions" : [],
@@ -19,7 +19,7 @@
 
 {
     "parameter" : "assessed-copd-group",
-    "description" : "return patient-centered SNOMED CT COPD group",
+    "description" : "assesses patient symptoms and returns GOLD group as SNOMED CT value",
     "cigInvolved" : [],
     "dataPaths" : [ 
         {
@@ -355,8 +355,9 @@
             }
         }, 
         {
-            "action" : "inLHS",
+            "action" : "Qomparison",
             "details" : {
+                "symbol": "inLHS",
                 "arg1" : "previous COPD group code",
                 "arg2" : "prevCopdGroup"
             }
@@ -370,8 +371,9 @@
             }
         }, 
         {
-            "action" : "inLHS",
+            "action" : "Qomparison",
             "details" : {
+                "symbol": "inLHS",
                 "arg1" : "current CAT score value",
                 "arg2" : "isLteCurrCAT_PrevCAT"
             }
@@ -381,12 +383,13 @@
             "details" : {
                 "arg1" : "current mMRC scale value",
                 "arg2" : "previous mMRC scale value",
-                "compare" : "lte"
+                "symbol" : "lte"
             }
         }, 
         {
-            "action" : "inLHS",
+            "action" : "Qomparison",
             "details" : {
+                "symbol": "inLHS",
                 "arg1" : "current mMRC scale value",
                 "arg2" : "isLteCurrMRC_PrevMRC"
             }
@@ -400,15 +403,17 @@
             }
         }, 
         {
-            "action" : "inLHS",
+            "action" : "comparison",
             "details" : {
+                "symbol": "inLHS",
                 "arg1" : "exacerbations within the last year",
                 "arg2" : "isLteCurrExa_PrevExa"
             }
         }, 
         {
-            "action" : "inLHS",
+            "action" : "comparison",
             "details" : {
+                "symbol": "inLHS",
                 "arg1" : "asthma",
                 "arg2" : "hasAsthma"
             }
@@ -426,7 +431,7 @@
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ],
-                "isLteCurrCAT_PrevCAT" : true,
+                "isLteCurrCAT_PrevCAT" : [true],
                 "isLteCurrMRC_PrevMRC" : [ 
                     true, 
                     false
@@ -453,28 +458,28 @@
             ]
         }, 
         {
-            "argList" : [ 
-                "Sama", 
-                [ 
+            "queryArgs" : { 
+                "prevMed" : [ "Sama"], 
+                "prevCopdGroup" : [  
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ], 
-                true, 
-                [ 
+                "isLteCurrCAT_PrevCAT": [true], 
+                "isLteCurrMRC_PrevMRC" : [  
                     true, 
                     false
                 ], 
-                [ 
+                "isLteCurrExa_PrevExa" : [  
                     true, 
                     false
                 ], 
-                [ 
+                "isLteCurrExa_PrevExa": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -485,7 +490,7 @@
                         "Saba"
                     ]
                 ]
-            ]
+            ]   
         }, 
         {
             "argList" : [ 
