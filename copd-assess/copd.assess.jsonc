@@ -1,0 +1,804 @@
+
+{
+    "parameter" : "patientId",
+    "description" : "patient identifier",
+    "cigInvolved" : [],
+    "dataPaths" : [ 
+        {
+            "label" : "patientId",
+            "Jpath" : "context.patientId",
+            "typeOf" : "string",
+            "defaultVal" : undefined,
+            "required" : false
+        }
+    ],
+    "actions" : [],
+    "output" : []
+}
+
+
+{
+    "parameter" : "assessed-copd-group",
+    "description" : "return patient-centered SNOMED CT COPD group",
+    "cigInvolved" : [],
+    "dataPaths" : [ 
+        {
+            "label" : "exacerbations",
+            "description" : "current number of exacerbations within 1 year",
+            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding[code='723245007']].valueInteger",
+            "typeOf" : "number",
+            "defaultVal" : undefined,
+            "required" : true
+        }, 
+        {
+            "label" : "currCATscore",
+            "description" : "current CAT score",
+            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding[code='446660005']].valueInteger",
+            "typeOf" : "number",
+            "defaultVal" : undefined,
+            "required" : true
+        }, 
+        {
+            "label" : "currmMRCscale",
+            "description" : "current mMRC scale",
+            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding[code='450755002']].valueInteger",
+            "typeOf" : "number",
+            "defaultVal" : undefined,
+            "required" : false
+        }
+    ],
+    "actions" : [ 
+        {
+            "action" : "comparison",
+            "details" : {
+                "symbol" : "lt",
+                "arg1" : "exacerbations",
+                "arg2" : 2
+            }
+        }, 
+        {
+            "action" : "comparison",
+            "details" : {
+                "symbol" : "lt",
+                "arg1" : "currCATscore",
+                "arg2" : 10
+            }
+        }, 
+        {
+            "action" : "comparison",
+            "details" : {
+                "symbol" : "lt",
+                "arg1" : "currmMRCscale",
+                "arg2" : 2
+            }
+        }, 
+        {
+            "action" : "Qomparison",
+            "details" : {
+                "arg1" : "exacerbations",
+                "symbol" : "eq",
+                "arg2" : "exacerbations"
+            }
+        }, 
+        {
+            "action" : "Qomparison",
+            "details" : {
+                "arg1" : "currCATscore",
+                "symbol" : "eq",
+                "arg2" : "catCntrlVal"
+            }
+        }, 
+        {
+            "action" : "in",
+            "details" : {
+                "arg2" : "mrcCntrlVal",
+                "arg1" : "currmMRCscale"
+            }
+        }
+    ],
+    "output" : [ 
+        {
+            "queryArgs" : {
+                "exacerbations" : [ 
+                    true
+                ],
+                "catCntrlVal" : [ 
+                    true
+                ],
+                "mrcCntrlVal" : [ 
+                    true, 
+                    false
+                ]
+            },
+            "outcome" : [ 
+                NumberLong(1097871000000101)
+            ]
+        }, 
+        {
+            "queryArgs" : {
+                "exacerbations" : [ 
+                    true
+                ],
+                "catCntrlVal" : [ 
+                    false
+                ],
+                "mrcCntrlVal" : [ 
+                    true, 
+                    false
+                ]
+            },
+            "outcome" : [ 
+                NumberLong(1097881000000104)
+            ]
+        }, 
+        {
+            "queryArgs" : {
+                "exacerbations" : [ 
+                    false
+                ],
+                "catCntrlVal" : [ 
+                    true
+                ],
+                "mrcCntrlVal" : [ 
+                    true, 
+                    false
+                ]
+            },
+            "outcome" : [ 
+                NumberLong(1097891000000102)
+            ]
+        }, 
+        {
+            "queryArgs" : {
+                "exacerbations" : [ 
+                    false
+                ],
+                "catCntrlVal" : [ 
+                    false
+                ],
+                "mrcCntrlVal" : [ 
+                    true, 
+                    false
+                ]
+            },
+            "outcome" : [ 
+                NumberLong(1097901000000101)
+            ]
+        }
+    ]
+}
+
+{
+    "parameter" : "hypertension",
+    "cigInvolved" : [ 
+        "CIG-HT"
+    ],
+    "dataPaths" : [ 
+        {
+            "label" : "HT_code",
+            "Jpath" : "context.hypertension.code.coding[system='http://snomed.info/sct'].code",
+            "typeOf" : "string",
+            "defaultVal" : undefined,
+            "required" : true
+        }
+    ],
+    "actions" : [ 
+        {
+            "action" : "subClassOf",
+            "details" : {
+                "codeSystemId" : "SNOMEDCT",
+                "arg2" : "ancestor_conceptId",
+                "arg1" : "HT_code"
+            }
+        }
+    ],
+    "output" : [ 
+        {
+            "queryArgs" : {
+                "ancestor_conceptId" : [ 
+                    "38341003"
+                ]
+            },
+            "outcome" : [ 
+                "CIG-HT"
+            ]
+        }, 
+        {
+            "queryArgs" : {
+                "ancestor_conceptId" : [ 
+                    "hols"
+                ]
+            },
+            "outcome" : [ 
+                "CIG-NON-HT"
+            ]
+        }
+    ]
+}
+
+{
+    "parameter" : "findRef",
+    "cigInvolved" : [],
+    "dataPaths" : [ 
+        {
+            "label" : "selections",
+            "Jpath" : "context.selections",
+            "typeOf" : "string",
+            "defaultVal" : [],
+            "required" : true
+        }
+    ],
+    "actions" : [ 
+        {
+            "action" : "findRef",
+            "details" : {
+                "Jpath" : "context.draftOrders.entry.resource[resourceType='var1' and id='var2'].code.coding.code",
+                "typeOf" : "string",
+                "arg1" : "selections"
+            }
+        }
+    ],
+    "output" : []
+}
+
+
+{
+    "parameter" : "age",
+    "cigInvolved" : [],
+    "dataPaths" : [ 
+        {
+            "label" : "birthDate",
+            "Jpath" : "context.birthDate",
+            "typeOf" : "string",
+            "defaultVal" : undefined,
+            "required" : false
+        }
+    ],
+    "actions" : [ 
+        {
+            "action" : "function",
+            "details" : {
+                "symbol" : "calculate_age",
+                "arg1" : "birthDate"
+            }
+        }
+    ],
+    "output" : []
+}
+
+
+{
+    "parameter" : "copdGroupA",
+    "description" : "prioritises COPD drugs for patient in COPD group A",
+    "cigInvolved" : [],
+    "dataPaths" : [ 
+        {
+            "label" : "previous medication",
+            "description" : "returns COPD meds used prior to this COPD review. If none is found, it returns SABA",
+            "Jpath" : "$..medication.code.coding[0].code",
+            "typeOf" : "string",
+            "defaultVal" : "Saba",
+            "required" : true
+        }, 
+        {
+            "label" : "previous COPD group code",
+            "description" : "returns COPD group of patient prior to this COPD review. If none is found, it returns COPD group A",
+            "Jpath" : "$..previousAssessment.entry[?(@.resource.resourceType==='Observation' && @.resource.code.coding[0].code==='1097861000000108')].valueCodeableConcept.coding[0].code",
+            "typeOf" : "number",
+            "defaultVal" : NumberLong(1097871000000101),
+            "required" : true
+        }, 
+        {
+            "label" : "current CAT score value",
+            "description" : "returns CAT score taken at this COPD review",
+            "Jpath" : "$..currentAssessment.entry[?(@.resource.resourceType==='Observation' && @.resource.code.coding[0].code==='446660005')].resource.valueInteger",
+            "typeOf" : "number",
+            "defaultVal" : undefined,
+            "required" : true
+        }, 
+        {
+            "label" : "previous CAT score value",
+            "description" : "returns CAT score taken at previous COPD review. If none is found, it returns current CAT score",
+            "Jpath" : "$..previousAssessment.entry[?(@.resource.resourceType==='Observation' && @.resource.code.coding[0].code==='446660005')].resource.valueInteger",
+            "typeOf" : "number",
+            "defaultVal" : "$..currentAssessment.entry[?(@.resource.resourceType==='Observation' && @.resource.code.coding[0].code==='446660005')].resource.valueInteger",
+            "required" : true
+        }, 
+        {
+            "label" : "current mMRC scale value",
+            "description" : "returns mMRC scale value taken at current COPD review",
+            "Jpath" : "$..currentAssessment.entry[?(@.resource.resourceType==='Observation' && @.resource.code.coding[0].code==='450755002')].resource.valueInteger",
+            "typeOf" : "number",
+            "defaultVal" : undefined,
+            "required" : true
+        }, 
+        {
+            "label" : "previous mMRC scale value",
+            "description" : "returns mMRC scale value taken at previous COPD review. If none is found, it returns value at current COPD review",
+            "Jpath" : "$..previousAssessment.entry[?(@.resource.resourceType==='Observation' && @.resource.code.coding[0].code==='450755002')].resource.valueInteger",
+            "typeOf" : "number",
+            "defaultVal" : "$..currentAssessment.entry[?(@.resource.resourceType==='Observation' && @.resource.code.coding[0].code==='450755002')].resource.valueInteger",
+            "required" : true
+        }, 
+        {
+            "label" : "exacerbations within the last year",
+            "description" : "returns exacerbations within the last year",
+            "Jpath" : "$..currentAssessment.entry[?(@.resource.resourceType==='Observation' && @.resource.code.coding[0].code==='723245007')].resource.valueInteger",
+            "typeOf" : "number",
+            "defaultVal" : undefined,
+            "required" : true
+        }, 
+        {
+            "label" : "exacerbations at previous review",
+            "description" : "returns exacerbations within the last year from previous visit. If none is found, it returns exacerbations counted at this visit",
+            "Jpath" : "$..previousAssessment.entry[?(@.resource.resourceType==='Observation' && @.resource.code.coding[0].code==='723245007')].resource.valueInteger",
+            "typeOf" : "number",
+            "defaultVal" : "$..currentAssessment.entry[?(@.resource.resourceType==='Observation' && @.resource.code.coding[0].code==='723245007')].resource.valueInteger",
+            "required" : true
+        }, 
+        {
+            "label" : "asthma",
+            "description" : "returns boolean value on whether patient has asthma or not",
+            "Jpath" : "$..asthma.code.coding[0].code",
+            "typeOf" : "boolean",
+            "defaultVal" : undefined,
+            "required" : false
+        }
+    ],
+    "actions" : [ 
+        {
+            "action" : "comparison",
+            "details" : {
+                "arg1" : "previous medication",
+                "symbol" : "eq",
+                "arg2" : "prevMed"
+            }
+        }, 
+        {
+            "action" : "inLHS",
+            "details" : {
+                "arg1" : "previous COPD group code",
+                "arg2" : "prevCopdGroup"
+            }
+        }, 
+        {
+            "action" : "comparison",
+            "details" : {
+                "arg1" : "current CAT score value",
+                "arg2" : "previous CAT score value",
+                "symbol" : "lte"
+            }
+        }, 
+        {
+            "action" : "inLHS",
+            "details" : {
+                "arg1" : "current CAT score value",
+                "arg2" : "isLteCurrCAT_PrevCAT"
+            }
+        }, 
+        {
+            "action" : "comparison",
+            "details" : {
+                "arg1" : "current mMRC scale value",
+                "arg2" : "previous mMRC scale value",
+                "compare" : "lte"
+            }
+        }, 
+        {
+            "action" : "inLHS",
+            "details" : {
+                "arg1" : "current mMRC scale value",
+                "arg2" : "isLteCurrMRC_PrevMRC"
+            }
+        }, 
+        {
+            "action" : "comparison",
+            "details" : {
+                "arg1" : "exacerbations within the last year",
+                "arg2" : "exacerbations at previous review",
+                "symbol" : "lte"
+            }
+        }, 
+        {
+            "action" : "inLHS",
+            "details" : {
+                "arg1" : "exacerbations within the last year",
+                "arg2" : "isLteCurrExa_PrevExa"
+            }
+        }, 
+        {
+            "action" : "inLHS",
+            "details" : {
+                "arg1" : "asthma",
+                "arg2" : "hasAsthma"
+            }
+        }
+    ],
+    "output" : [ 
+        {
+            "queryArgs" : {
+                "prevMed" : [ 
+                    "Saba"
+                ],
+                "prevCopdGroup" : [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ],
+                "isLteCurrCAT_PrevCAT" : true,
+                "isLteCurrMRC_PrevMRC" : [ 
+                    true, 
+                    false
+                ],
+                "isLteCurrExa_PrevExa" : [ 
+                    true, 
+                    false
+                ],
+                "hasAsthma" : [ 
+                    true, 
+                    false
+                ]
+            },
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "Saba"
+                    ], 
+                    [ 
+                        "SabaSama", 
+                        "Sama"
+                    ]
+                ]
+            ]
+        }, 
+        {
+            "argList" : [ 
+                "Sama", 
+                [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ], 
+                true, 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ]
+            ],
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "Sama"
+                    ], 
+                    [ 
+                        "SabaSama", 
+                        "Saba"
+                    ]
+                ]
+            ]
+        }, 
+        {
+            "argList" : [ 
+                "Sama", 
+                [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ], 
+                false, 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ]
+            ],
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "SabaSama"
+                    ], 
+                    [ 
+                        "Sama", 
+                        "Saba"
+                    ]
+                ]
+            ]
+        }, 
+        {
+            "argList" : [ 
+                "Saba", 
+                [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ], 
+                false, 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ]
+            ],
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "SabaSama"
+                    ], 
+                    [ 
+                        "Sama", 
+                        "Saba"
+                    ]
+                ]
+            ]
+        }, 
+        {
+            "argList" : [ 
+                "SabaSama", 
+                [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ]
+            ],
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "SabaSama"
+                    ], 
+                    [ 
+                        "Sama", 
+                        "Saba"
+                    ]
+                ]
+            ]
+        }, 
+        {
+            "argList" : [ 
+                "Laba", 
+                [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ]
+            ],
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "Laba"
+                    ], 
+                    [ 
+                        "SabaSama"
+                    ], 
+                    [ 
+                        "Saba", 
+                        "Sama"
+                    ]
+                ]
+            ]
+        }, 
+        {
+            "argList" : [ 
+                "LabaLama", 
+                [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ]
+            ],
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "LabaLama"
+                    ], 
+                    [ 
+                        "SabaSama"
+                    ], 
+                    [ 
+                        "Saba", 
+                        "Sama"
+                    ]
+                ]
+            ]
+        }, 
+        {
+            "argList" : [ 
+                "Lama", 
+                [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ]
+            ],
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "Lama"
+                    ], 
+                    [ 
+                        "SabaSama"
+                    ], 
+                    [ 
+                        "Saba", 
+                        "Sama"
+                    ]
+                ]
+            ]
+        }, 
+        {
+            "argList" : [ 
+                "LabaIcs", 
+                [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ]
+            ],
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "LabaIcs"
+                    ], 
+                    [ 
+                        "SabaSama"
+                    ], 
+                    [ 
+                        "Saba", 
+                        "Sama"
+                    ]
+                ]
+            ]
+        }, 
+        {
+            "argList" : [ 
+                "LabaLamaIcs", 
+                [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ], 
+                [ 
+                    true, 
+                    false
+                ]
+            ],
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "LabaLamaIcs"
+                    ], 
+                    [ 
+                        "SabaSama"
+                    ], 
+                    [ 
+                        "Saba", 
+                        "Sama"
+                    ]
+                ]
+            ]
+        }
+    ]
+}
