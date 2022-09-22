@@ -48,7 +48,7 @@
 /* 2 */
 {
     "_id" : ObjectId("5f96f83240e8fcddde4d0cc7"),
-    "parameter" : "selected_copd_group",
+    "parameter" : "recommendationsBySelectedCopdGroup",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
@@ -111,7 +111,7 @@
 /* 3 */
 {
     "_id" : ObjectId("5f96f84840e8fcddde4d0cd1"),
-    "parameter" : "additional__medication_subcigs",
+    "parameter" : "recommendationsDrugsOutsideCopdGroup",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
@@ -124,15 +124,8 @@
             "required" : true
         }, 
         {
-            "label" : "cds_suggested_drugs",
-            "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code",
-            "defaultVal" : undefined,
-            "typeOf" : "string",
-            "required" : true
-        }, 
-        {
-            "label" : "user_selected_drugs",
-            "Jpath" : "context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding.code",
+            "label" : "allDistinctDrugs",
+            "Jpath" : "$distinct($append(context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code,context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding.code))",
             "defaultVal" : undefined,
             "typeOf" : "string",
             "required" : true
@@ -512,7 +505,7 @@
 /* 9 */
 {
     "_id" : ObjectId("6051de659e1a873cb1818822"),
-    "parameter" : "medications_user_selection",
+    "parameter" : "alternativeTreatmentPathways",
     "cigInvolved" : [],
     "pathList" : [ 
         {
@@ -547,241 +540,15 @@
 
 /* 10 */
 {
-    "_id" : ObjectId("60ca2c4823f2a312ced8e7b2"),
-    "parameter" : "additional_selected_meds",
-    "cigInvolved" : [ 
-        "CIG-COPD"
-    ],
+    "_id" : ObjectId("61a0d1a0c165b1ae106f9e02"),
+    "parameter" : "selectedTreatmentPathways",
+    "cigInvolved" : [],
     "pathList" : [ 
         {
             "label" : "selected meds",
             "Jpath" : "context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding.code",
             "typeOf" : "string",
             "defaultVal" : undefined,
-            "required" : true
-        }, 
-        {
-            "label" : "cdss suggested meds",
-            "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code",
-            "defaultVal" : undefined,
-            "typeOf" : "string",
-            "required" : true
-        }, 
-        {
-            "label" : "copd_group_clinical_code",
-            "Jpath" : "context.copdAssessment.entry.resource[code.coding.code='1097861000000108'].valueCodeableConcept.coding.code",
-            "typeOf" : "number",
-            "defaultVal" : undefined,
-            "required" : true
-        }
-    ],
-    "actionList" : [ 
-        {
-            "action" : "function",
-            "details" : {
-                "function_name" : "arr_diff_nonSymm",
-                "pathListIndex" : [ 
-                    0, 
-                    1
-                ]
-            }
-        }, 
-        {
-            "action" : "inLHS",
-            "details" : {
-                "resultArgListIndex" : 1,
-                "pathListIndex" : [ 
-                    0
-                ]
-            }
-        }, 
-        {
-            "action" : "inLHS",
-            "details" : {
-                "resultArgListIndex" : 0,
-                "pathListIndex" : [ 
-                    2
-                ]
-            }
-        }
-    ],
-    "resultList" : [ 
-        {
-            "argList" : [ 
-                NumberLong(1097871000000101), 
-                "Laba"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_A.Laba"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097871000000101), 
-                "Lama"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_A.Lama"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097871000000101), 
-                "LabaLama"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_A.LabaLama"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097871000000101), 
-                "LabaLamaIcs"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_A.LabaLamaIcs"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097871000000101), 
-                "LabaIcs"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_A.LabaIcs"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097881000000104), 
-                "Saba"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_B.Saba"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097881000000104), 
-                "Sama"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_B.Sama"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097881000000104), 
-                "SabaSama"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_B.SabaSama"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097881000000104), 
-                "LabaLamaIcs"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_B.LabaLamaIcs"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097881000000104), 
-                "LabaIcs"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_B.LabaIcs"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097891000000102), 
-                "Saba"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_C.Saba"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097891000000102), 
-                "Sama"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_C.Sama"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097891000000102), 
-                "SabaSama"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_C.SabaSama"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097891000000102), 
-                "Laba"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_C.LabaLamaIcs"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097901000000101), 
-                "Laba"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_D.Laba"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097901000000101), 
-                "Saba"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_D.Saba"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097901000000101), 
-                "Sama"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_D.Sama"
-            ]
-        }, 
-        {
-            "argList" : [ 
-                NumberLong(1097901000000101), 
-                "SabaSama"
-            ],
-            "outcome" : [ 
-                "subCIG-Group_D.SabaSama"
-            ]
-        }
-    ]
-}
-
-/* 11 */
-{
-    "_id" : ObjectId("60cc965fbb36472fea3b5383"),
-    "parameter" : "cds_suggested_preference_order",
-    "cigInvolved" : [],
-    "pathList" : [ 
-        {
-            "label" : "cdss suggested meds",
-            "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code",
-            "defaultVal" : undefined,
-            "typeOf" : "string",
             "required" : true
         }
     ],
