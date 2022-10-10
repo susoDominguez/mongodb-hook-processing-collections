@@ -1,49 +1,43 @@
 
 {
-    "parameter" : "patientId",
+    "parameter" : "patientID",
     "description" : "patient identifier",
     "cigInvolved" : [],
     "dataPaths" : [ 
         {
             "label" : "patientId",
+            "description" : "FHIR patient identifier",
             "Jpath" : "context.patientId",
             "typeOf" : "string",
-            "defaultVal" : undefined,
             "required" : true
         }
-    ],
-    "actions" : [],
-    "output" : []
+    ]
 }
 
-
 {
-    "parameter" : "goldGroupAssessment",
-    "description" : "assesses patient symptoms and returns GOLD group as SNOMED CT value",
+    "parameter" : "copdSeverityAssessment",
+    "description" : "assessment of patient symptoms: returns GOLD group as SNOMED CT value",
     "cigInvolved" : [],
     "dataPaths" : [ 
         {
-            "label" : "currExacerbations",
+            "label" : "exacerbations",
             "description" : "current number of exacerbations within 1 year",
             "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding[code='723245007']].valueInteger",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
-            "label" : "currCATscore",
+            "label" : "CAT",
             "description" : "current CAT score",
             "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding[code='446660005']].valueInteger",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
-            "label" : "currmMRCscale",
+            "label" : "mMRC",
             "description" : "current mMRC scale",
             "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding[code='450755002']].valueInteger",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : false
         }
     ],
@@ -60,7 +54,7 @@
             "action" : "comparison",
             "details" : {
                 "symbol" : "lt",
-                "arg1" : "currCATscore",
+                "arg1" : "CAT",
                 "arg2" : 10
             }
         }, 
@@ -68,99 +62,111 @@
             "action" : "comparison",
             "details" : {
                 "symbol" : "lt",
-                "arg1" : "currmMRCscale",
+                "arg1" : "mMRC",
                 "arg2" : 2
             }
         }, 
         {
             "action" : "Qomparison",
             "details" : {
-                "arg1" : "currExacerbations",
+                "arg1" : "exacerbations",
                 "symbol" : "eq",
-                "arg2" : "currExacerbations"
+                "arg2" : "exacerbations"
             }
         }, 
         {
             "action" : "Qomparison",
             "details" : {
-                "arg1" : "currCATscore",
+                "arg1" : "CAT",
                 "symbol" : "eq",
-                "arg2" : "currCATscore"
+                "arg2" : "CAT"
             }
         }, 
         {
             "action" : "Qomparison",
             "details" : {
-                "arg2" : "currmMRCscale",
-                "arg1" : "currmMRCscale",
+                "arg2" : "mMRC",
+                "arg1" : "mMRC",
                 "symbol" : "in",
             }
         }
     ],
     "output" : [ 
         {
-            "queryArgs" : {
-                "currExacerbations" : [ 
-                    true
-                ],
-                "currCATscore" : [ 
-                    true
-                ],
-                "currmMRCscale" : [ 
-                    true, 
-                    false
-                ]
+            "constraintParam" : {
+                "exacerbations" : true,
+                "currCAT" : true,
+                "currMmrc" : true
             },
             "outcome" : [ 
                 NumberLong(1097871000000101)
             ]
         }, 
         {
-            "queryArgs" : {
-                "currExacerbations" : [ 
-                    true
-                ],
-                "currCATscore" : [ 
-                    false
-                ],
-                "currmMRCscale" : [ 
-                    true, 
-                    false
-                ]
+            "constraintParam" : {
+                "exacerbations" : true,
+                "currCAT" : false,
+                "currMmrc" : false
             },
             "outcome" : [ 
                 NumberLong(1097881000000104)
             ]
         }, 
         {
-            "queryArgs" : {
-                "currExacerbations" : [ 
-                    false
-                ],
-                "currCATscore" : [ 
-                    true
-                ],
-                "currmMRCscale" : [ 
-                    true, 
-                    false
-                ]
+            "constraintParam" : {
+                "exacerbations" : false,
+                "currCAT" : true,
+                "currMmrc" : true
             },
             "outcome" : [ 
                 NumberLong(1097891000000102)
             ]
         }, 
         {
-            "queryArgs" : {
-                "currExacerbationsvvvvvvv" : [ 
-                    false
-                ],
-                "currCATscore" : [ 
-                    false
-                ],
-                "currmMRCscale" : [ 
-                    true, 
-                    false
-                ]
+            "constraintParam" : {
+                "exacerbations" : false,
+                "currCAT" : false,
+                "currMmrc" : false
+            },
+            "outcome" : [ 
+                NumberLong(1097901000000101)
+            ]
+        }, 
+        {
+            "constraintParam" : {
+                "exacerbations" : true,
+                "currCAT" : true,
+                "currMmrc" : false
+            },
+            "outcome" : [ 
+                NumberLong(1097871000000101)
+            ]
+        }, 
+        {
+            "constraintParam" : {
+                "exacerbations" : true,
+                "currCAT" : false,
+                "currMmrc" : true
+            },
+            "outcome" : [ 
+                NumberLong(1097881000000104)
+            ]
+        }, 
+        {
+            "constraintParam" : {
+                "exacerbations" : false,
+                "currCAT" : true,
+                "currMmrc" : false
+            },
+            "outcome" : [ 
+                NumberLong(1097891000000102)
+            ]
+        }, 
+        {
+            "constraintParam" : {
+                "exacerbations" : false,
+                "currCAT" : false,
+                "currMmrc" : true
             },
             "outcome" : [ 
                 NumberLong(1097901000000101)
@@ -171,187 +177,173 @@
 
 
 {
-    "_id" : ObjectId("604a0b478faa68812d73e9b1"),
-    "parameter" : "copdGroupA",
+    "parameter" : "goldGroupA_treatmentPriorities",
+    "description" : "prioritises COPD group A drug pathways using current patient context",
     "cigInvolved" : [],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
-            "label" : "previous medication",
+            "label" : "prevMed",
+            "description" : "returns COPD meds used prior to this COPD review. If none is found, it returns SABA drug type",
             "Jpath" : "context.medication.code.coding.code",
             "typeOf" : "string",
             "defaultVal" : "Saba",
             "required" : true
         }, 
         {
-            "label" : "previous COPD group code",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='1097861000000108'].valueCodeableConcept.coding.code",
+            "label" : "prevCopdGroup",
+            "description" : "returns COPD group of patient prior to this COPD review. If none is found, it returns COPD group A",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and resource.status='final' and '1097861000000108' in resource.code.coding[].code].*.valueCodeableConcept.coding.code",
             "typeOf" : "number",
             "defaultVal" : NumberLong(1097871000000101),
             "required" : true
         }, 
         {
-            "label" : "current CAT score value",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "label" : "currCat",
+            "description" : "returns CAT score taken at this COPD review. If not found, user has not inserted it yet",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
-            "label" : "previous CAT score value",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "label" : "prevCat",
+            "description" : "returns CAT score taken at previous COPD review. If none is found, it returns current CAT score",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
-            "label" : "current mMRC scale value",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "label" : "currMmrc",
+            "description" : "returns mMRC scale value taken at current COPD review. If not found, user has not inserted it yet",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
-            "label" : "previous mMRC scale value",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "label" : "prevMmrc",
+            "description" : "returns mMRC scale value taken at previous COPD review. If none is found, it returns value at current COPD review",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
-            "label" : "exacerbations within the last year",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "label" : "currExac",
+            "description" : "returns exacerbations within the last year.I f not found, it assumes value is zero",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
+            "defaultVal" : 0,
             "required" : true
         }, 
         {
-            "label" : "exacerbations at last visit",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "label" : "prevExac",
+            "description" : "returns exacerbations within the last year from previous visit. If none is found, it returns exacerbations counted at this visit",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
             "label" : "asthma",
-            "Jpath" : "context.asthma.code.coding.code",
+            "description" : "query to find (boolean) whether any asthma code is present in the record",
+            "Jpath" : "$count(context.asthma.code.coding.code) > 0",
             "typeOf" : "boolean",
-            "defaultVal" : 0,
             "required" : false
         }
     ],
-    "actionList" : [ 
+    "actions" : [ 
         {
             "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    0
-                ],
-                "compare" : "eq",
-                "resultArgListIndex" : 0
+                "symbol" : "lte",
+                "arg1" : "currCat",
+                "arg2" : "prevCat"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    1
-                ],
-                "resultArgListIndex" : 1
+                "arg1" : "currCat",
+                "arg2" : "currCat"
             }
         }, 
         {
             "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    2, 
-                    3
-                ],
-                "compare" : "lte"
+                "compare" : "lte",
+                "arg1" : "currMmrc",
+                "arg2" : "prevMmrc"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    2
-                ],
-                "resultArgListIndex" : 2
+                "arg1" : "currMmrc",
+                "arg2" : "currMmrc"
             }
         }, 
         {
             "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    4, 
-                    5
-                ],
-                "compare" : "lte"
+                "symbol" : "lte",
+                "arg1" : "currExac",
+                "arg2" : "prevExac"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    4
-                ],
-                "resultArgListIndex" : 3
+                "arg1" : "currExac",
+                "arg2" : "currExac"
             }
         }, 
         {
-            "action" : "comparison",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    6, 
-                    7
-                ],
-                "compare" : "lte"
+                "arg1" : "asthma",
+                "arg2" : "asthma"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    6
-                ],
-                "resultArgListIndex" : 4
+                "arg1" : "prevMed",
+                "arg2" : "prevMed"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    8
-                ],
-                "resultArgListIndex" : 5
+                "arg1" : "prevCopdGroup",
+                "arg2" : "prevCopdGroup"
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [ 
         {
-            "argList" : [ 
-                "Saba", 
-                [ 
+            "constraintParam" : {
+                "prevMed" : [ 
+                    "Saba"
+                ],
+                "prevCopdGroup" : [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
-                ], 
-                [ 
+                ],
+                "currCat" : [ 
                     true
-                ], 
-                [ 
+                ],
+                "currMmrc" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currExac" : [ 
                     true, 
                     false
-                ], 
-                [ 
-                    true, 
-                    false
-                ]
-            ],
+                ],
+                "asthma" : [true, false]
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -365,30 +357,32 @@
             ]
         }, 
         {
-            "argList" : [ 
-                "Sama", 
-                [ 
+            "constraintParam" : {
+                "prevMed" : [ 
+                    "Sama"
+                ],
+                "prevCopdGroup" : [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
-                ], 
-                [ 
+                ],
+                "currCat" : [ 
                     true
-                ], 
-                [ 
+                ],
+                "currMmrc" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currExac" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "asthma" : [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -402,105 +396,32 @@
             ]
         }, 
         {
-            "argList" : [ 
-                "Sama", 
-                [ 
+            "constraintParam" : {
+                "prevMed" : [ 
+                    "Sama"
+                ],
+                "prevCopdGroup" : [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
-                ], 
-                [ 
+                ],
+                "currCat" : [ 
                     false
-                ], 
-                [ 
+                ],
+                "currMmrc" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currExac" : [ 
                     true, 
                     false
-                ], 
-                [ 
-                    true, 
-                    false
-                ]
-            ],
-            "outcome" : [ 
-                [ 
-                    [ 
-                        "SabaSama", 
-                        "Saba"
-                    ], 
-                    [ 
-                        "Sama"
-                    ]
-                ]
-            ]
-        }, 
-        {
-            "argList" : [ 
-                "Saba", 
-                [ 
-                    NumberLong(1097871000000101), 
-                    NumberLong(1097881000000104), 
-                    NumberLong(1097891000000102), 
-                    NumberLong(1097901000000101)
-                ], 
-                [ 
-                    false
-                ], 
-                [ 
-                    true, 
-                    false
-                ], 
-                [ 
-                    true, 
-                    false
-                ], 
-                [ 
+                ],
+                "asthma" : [ 
                     true, 
                     false
                 ]
-            ],
-            "outcome" : [ 
-                [ 
-                    [ 
-                        "SabaSama", 
-                        "Sama"
-                    ], 
-                    [ 
-                        "Saba"
-                    ]
-                ]
-            ]
-        }, 
-        {
-            "argList" : [ 
-                "SabaSama", 
-                [ 
-                    NumberLong(1097871000000101), 
-                    NumberLong(1097881000000104), 
-                    NumberLong(1097891000000102), 
-                    NumberLong(1097901000000101)
-                ], 
-                [ 
-                    true, 
-                    false
-                ], 
-                [ 
-                    true, 
-                    false
-                ], 
-                [ 
-                    true, 
-                    false
-                ], 
-                [ 
-                    true, 
-                    false
-                ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -514,31 +435,112 @@
             ]
         }, 
         {
-            "argList" : [ 
-                "Laba", 
-                [ 
+            "constraintParam" : {
+                "prevMed" : [ 
+                    "Saba"
+                ],
+                "prevCopdGroup" : [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
-                ], 
-                [ 
+                ],
+                "currCat" : [ 
+                    false
+                ],
+                "currMmrc" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currExac" : [ 
                     true, 
                     false
-                ], 
-                [ 
-                    true, 
-                    false
-                ], 
-                [ 
+                ],
+                "asthma" : [ 
                     true, 
                     false
                 ]
-            ],
+            },
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "SabaSama"
+                    ], 
+                    [ 
+                        "Sama", 
+                        "Saba"
+                    ]
+                ]
+            ]
+        }, 
+        {
+            "constraintParam" : {
+                "prevMed" : [ 
+                    "SabaSama"
+                ],
+                "prevCopdGroup" : [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ],
+                "currCat" : [ 
+                    true, 
+                    false
+                ],
+                "currMmrc" : [ 
+                    true, 
+                    false
+                ],
+                "currExac" : [ 
+                    true, 
+                    false
+                ],
+                "asthma" : [ 
+                    true, 
+                    false
+                ]
+            },
+            "outcome" : [ 
+                [ 
+                    [ 
+                        "SabaSama"
+                    ], 
+                    [ 
+                        "Sama", 
+                        "Saba"
+                    ]
+                ]
+            ]
+        }, 
+        {
+            "constraintParam" : {
+                "prevMed" : [ 
+                    "Laba"
+                ],
+                "prevCopdGroup" : [ 
+                    NumberLong(1097871000000101), 
+                    NumberLong(1097881000000104), 
+                    NumberLong(1097891000000102), 
+                    NumberLong(1097901000000101)
+                ],
+                "currCat" : [ 
+                    true, 
+                    false
+                ],
+                "currMmrc" : [ 
+                    true, 
+                    false
+                ],
+                "currExac" : [ 
+                    true, 
+                    false
+                ],
+                "asthma" : [ 
+                    true, 
+                    false
+                ]
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -548,40 +550,40 @@
                         "SabaSama"
                     ], 
                     [ 
-                        "Saba"
-                    ], 
-                    [ 
+                        "Saba", 
                         "Sama"
                     ]
                 ]
             ]
         }, 
         {
-            "argList" : [ 
-                "LabaLama", 
-                [ 
+            "constraintParam" : {
+                "prevMed" : [ 
+                    "LabaLama"
+                ],
+                "prevCopdGroup" : [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
-                ], 
-                [ 
+                ],
+                "currCat" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currMmrc" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currExac" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "asthma" : [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -598,31 +600,33 @@
             ]
         }, 
         {
-            "argList" : [ 
-                "Lama", 
-                [ 
+            "constraintParam" : {
+                "prevMed" : [ 
+                    "Lama"
+                ],
+                "prevCopdGroup" : [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
-                ], 
-                [ 
+                ],
+                "currCat" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currMmrc" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currExac" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "asthma" : [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -632,40 +636,40 @@
                         "SabaSama"
                     ], 
                     [ 
+                        "Saba", 
                         "Sama"
-                    ], 
-                    [ 
-                        "Saba"
                     ]
                 ]
             ]
         }, 
         {
-            "argList" : [ 
-                "LabaIcs", 
-                [ 
+            "constraintParam" : {
+                "prevMed" : [ 
+                    "LabaIcs"
+                ],
+                "prevCopdGroup" : [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
-                ], 
-                [ 
+                ],
+                "currCat" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currMmrc" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currExac" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "asthma" : [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -682,31 +686,33 @@
             ]
         }, 
         {
-            "argList" : [ 
-                "LabaLamaIcs", 
-                [ 
+            "constraintParam" : {
+                "prevMed" : [ 
+                    "LabaLamaIcs"
+                ],
+                "prevCopdGroup" : [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
-                ], 
-                [ 
+                ],
+                "currCat" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currMmrc" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "currExac" : [ 
                     true, 
                     false
-                ], 
-                [ 
+                ],
+                "asthma" : [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -726,189 +732,177 @@
 }
 
 {
-    "_id" : ObjectId("60913a4770f808ab183ed424"),
-    "parameter" : "copdGroupB",
+    "parameter" : "goldGroupB_treatmentPriorities",
+    "description" : "prioritises COPD group A drug pathways using current patient context",
     "cigInvolved" : [],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
-            "label" : "previous medication",
+            "label" : "prevMed",
+            "description" : "returns COPD meds used prior to this COPD review. If none is found, it returns SABA drug type",
             "Jpath" : "context.medication.code.coding.code",
             "typeOf" : "string",
             "defaultVal" : "Saba",
             "required" : true
         }, 
         {
-            "label" : "previous COPD group code",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='1097861000000108'].valueCodeableConcept.coding.code",
+            "label" : "prevCopdGroup",
+            "description" : "returns COPD group of patient prior to this COPD review. If none is found, it returns COPD group A",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and resource.status='final' and '1097861000000108' in resource.code.coding[].code].*.valueCodeableConcept.coding.code",
             "typeOf" : "number",
             "defaultVal" : NumberLong(1097871000000101),
             "required" : true
         }, 
         {
-            "label" : "current CAT score value",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "label" : "currCat",
+            "description" : "returns CAT score taken at this COPD review. If not found, user has not inserted it yet",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
-            "label" : "previous CAT score value",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "label" : "prevCat",
+            "description" : "returns CAT score taken at previous COPD review. If none is found, it returns current CAT score",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
-            "label" : "current mMRC scale value",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "label" : "currMmrc",
+            "description" : "returns mMRC scale value taken at current COPD review. If not found, user has not inserted it yet",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
-            "label" : "previous mMRC scale value",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "label" : "prevMmrc",
+            "description" : "returns mMRC scale value taken at previous COPD review. If none is found, it returns value at current COPD review",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
-            "label" : "exacerbations within the last year",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "label" : "currExac",
+            "description" : "returns exacerbations within the last year.I f not found, it assumes value is zero",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
+            "defaultVal" : 0,
             "required" : true
         }, 
         {
-            "label" : "exacerbations at last visit",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "label" : "prevExac",
+            "description" : "returns exacerbations within the last year from previous visit. If none is found, it returns exacerbations counted at this visit",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
             "label" : "asthma",
-            "Jpath" : "context.asthma.code.coding.code",
+            "description" : "query to find (boolean) whether any asthma code is present in the record",
+            "Jpath" : "$count(context.asthma.code.coding.code) > 0",
             "typeOf" : "boolean",
-            "defaultVal" : 0,
             "required" : false
         }
     ],
-    "actionList" : [ 
+    "actions" : [ 
         {
-            "action" : "inRHS",
+            "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    0
-                ],
-                "resultArgListIndex" : 0
+                "symbol" : "lte",
+                "arg1" : "currCat",
+                "arg2" : "prevCat"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    1
-                ],
-                "resultArgListIndex" : 1
+                "arg1" : "currCat",
+                "arg2" : "currCat"
             }
         }, 
         {
             "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    2, 
-                    3
-                ],
-                "compare" : "lte"
+                "compare" : "lte",
+                "arg1" : "currMmrc",
+                "arg2" : "prevMmrc"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    2
-                ],
-                "resultArgListIndex" : 2
+                "arg1" : "currMmrc",
+                "arg2" : "currMmrc"
             }
         }, 
         {
             "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    4, 
-                    5
-                ],
-                "compare" : "lte"
+                "symbol" : "lte",
+                "arg1" : "currExac",
+                "arg2" : "prevExac"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    4
-                ],
-                "resultArgListIndex" : 3
+                "arg1" : "currExac",
+                "arg2" : "currExac"
             }
         }, 
         {
-            "action" : "comparison",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    6, 
-                    7
-                ],
-                "compare" : "lte"
+                "arg1" : "asthma",
+                "arg2" : "asthma"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    6
-                ],
-                "resultArgListIndex" : 4
+                "arg1" : "prevMed",
+                "arg2" : "prevMed"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    8
-                ],
-                "resultArgListIndex" : 5
+                "arg1" : "prevCopdGroup",
+                "arg2" : "prevCopdGroup"
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+               "prevMed": [ 
                     "Saba", 
                     "SabaSama", 
                     "Sama", 
                     "LabaIcs"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097871000000101)
                 ], 
-                [ 
+                "currCat":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":[ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -924,34 +918,34 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+               "prevMed": [ 
                     "Saba", 
                     "Sama", 
                     "SabaSama"
                 ], 
-                [ 
+                "prevCopdGroup":[ 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":[ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -967,30 +961,30 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":  [ 
                     "LabaLamaIcs"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097871000000101)
                 ], 
-                [ 
+                "currCat":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":[ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1004,30 +998,30 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+              "prevMed":  [ 
                     "Laba"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097871000000101)
                 ], 
-                [ 
+                "currCat":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1043,30 +1037,30 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+            "prevMed":    [ 
                     "Lama"
                 ], 
-                [ 
+            "prevCopdGroup":    [ 
                     NumberLong(1097871000000101)
                 ], 
-                [ 
+                "currCat":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1082,30 +1076,30 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+             "prevMed":   [ 
                     "LabaLama"
                 ], 
-                [ 
+                "prevCopdGroup":  [ 
                     NumberLong(1097871000000101)
                 ], 
-                [ 
+                "currCat":    [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1119,32 +1113,32 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+             "prevMed":   [ 
                     "LabaIcs"
                 ], 
-                [ 
+                "prevCopdGroup":  [ 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":     [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1161,32 +1155,32 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+              "prevMed"  [ 
                     "LabaLamaIcs"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":     [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1203,31 +1197,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+             "prevMed":   [ 
                     "Laba"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":    [ 
                     false
                 ], 
-                [ 
+                "currmMRC":[ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":[ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1241,31 +1235,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":    [ 
                     "Laba"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":    [ 
                     true
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1279,31 +1273,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":  [ 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup":  [ 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":    [ 
                     false
                 ], 
-                [ 
+                "currmMRC":[ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1317,31 +1311,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":  [ 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup":   [ 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":   [ 
                     true
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":[ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1355,31 +1349,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":  [ 
                     "LabaLama"
                 ], 
-                [ 
+                "prevCopdGroup":  [ 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":   [ 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1393,31 +1387,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "LabaLama"
                 ], 
-                [ 
+                "prevCopdGroup":   [ 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":  [ 
                     true
                 ], 
-                [ 
+                "currmMRC":[ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1435,185 +1429,172 @@
 
 {
     "_id" : ObjectId("60913a6470f808ab183ed433"),
-    "parameter" : "copdGroupC",
+    "parameter" : "goldGroupC_treatmentPriorities",
     "cigInvolved" : [],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
-            "label" : "previous medication",
+            "label" : "prevMed",
+            "description" : "returns COPD meds used prior to this COPD review. If none is found, it returns SABA drug type",
             "Jpath" : "context.medication.code.coding.code",
             "typeOf" : "string",
             "defaultVal" : "Saba",
             "required" : true
         }, 
         {
-            "label" : "previous COPD group code",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='1097861000000108'].valueCodeableConcept.coding.code",
+            "label" : "prevCopdGroup",
+            "description" : "returns COPD group of patient prior to this COPD review. If none is found, it returns COPD group A",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and resource.status='final' and '1097861000000108' in resource.code.coding[].code].*.valueCodeableConcept.coding.code",
             "typeOf" : "number",
             "defaultVal" : NumberLong(1097871000000101),
             "required" : true
         }, 
         {
-            "label" : "current CAT score value",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "label" : "currCat",
+            "description" : "returns CAT score taken at this COPD review. If not found, user has not inserted it yet",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
-            "label" : "previous CAT score value",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "label" : "prevCat",
+            "description" : "returns CAT score taken at previous COPD review. If none is found, it returns current CAT score",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
-            "label" : "current mMRC scale value",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "label" : "currMmrc",
+            "description" : "returns mMRC scale value taken at current COPD review. If not found, user has not inserted it yet",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
-            "label" : "previous mMRC scale value",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "label" : "prevMmrc",
+            "description" : "returns mMRC scale value taken at previous COPD review. If none is found, it returns value at current COPD review",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
-            "label" : "exacerbations within the last year",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "label" : "currExac",
+            "description" : "returns exacerbations within the last year.I f not found, it assumes value is zero",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
+            "defaultVal" : 0,
             "required" : true
         }, 
         {
-            "label" : "exacerbations at last visit",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "label" : "prevExac",
+            "description" : "returns exacerbations within the last year from previous visit. If none is found, it returns exacerbations counted at this visit",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
             "label" : "asthma",
-            "Jpath" : "context.asthma.code.coding.code",
+            "description" : "query to find (boolean) whether any asthma code is present in the record",
+            "Jpath" : "$count(context.asthma.code.coding.code) > 0",
             "typeOf" : "boolean",
-            "defaultVal" : 0,
             "required" : false
         }
     ],
-    "actionList" : [ 
+    "actions" : [
         {
-            "action" : "inRHS",
+            "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    0
-                ],
-                "resultArgListIndex" : 0
+                "symbol" : "lte",
+                "arg1" : "currCat",
+                "arg2" : "prevCat"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    1
-                ],
-                "resultArgListIndex" : 1
+                "arg1" : "currCat",
+                "arg2" : "currCat"
             }
         }, 
         {
             "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    2, 
-                    3
-                ],
-                "compare" : "lte"
+                "compare" : "lte",
+                "arg1" : "currMmrc",
+                "arg2" : "prevMmrc"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    2
-                ],
-                "resultArgListIndex" : 2
+                "arg1" : "currMmrc",
+                "arg2" : "currMmrc"
             }
         }, 
         {
             "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    4, 
-                    5
-                ],
-                "compare" : "lte"
+                "symbol" : "lte",
+                "arg1" : "currExac",
+                "arg2" : "prevExac"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    4
-                ],
-                "resultArgListIndex" : 3
+                "arg1" : "currExac",
+                "arg2" : "currExac"
             }
         }, 
         {
-            "action" : "comparison",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    6, 
-                    7
-                ],
-                "compare" : "lte"
+                "arg1" : "asthma",
+                "arg2" : "asthma"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    6
-                ],
-                "resultArgListIndex" : 4
+                "arg1" : "prevMed",
+                "arg2" : "prevMed"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    8
-                ],
-                "resultArgListIndex" : 5
+                "arg1" : "prevCopdGroup",
+                "arg2" : "prevCopdGroup"
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [ 
         {
-            "argList" : [ 
-                [ 
-                    "LabaLama"
+            "constraintParam" : { 
+               "prevMed": [     "LabaLama"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":[ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1627,31 +1608,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
-                    "LabaIcs"
+            "constraintParam" : { 
+               "prevMed": [ 
+                "LabaIcs"
                 ], 
-                [ 
+                "prevCopdGroup":[ 
                     NumberLong(1097881000000104), 
                     NumberLong(1097871000000101)
                 ], 
-                [ 
+                "currCat":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":[ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1667,30 +1648,30 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":  [ 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":[ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1706,30 +1687,30 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
-                    "LabaIcs"
+            "constraintParam" : { 
+              "prevMed":  [ 
+                "LabaIcs"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
-                    false, 
-                    true
-                ], 
-                [ 
+                "currCat":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
+                    true, 
+                    false
+                ], 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1743,30 +1724,30 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
-                    "LabaLamaIcs"
+            "constraintParam" : { 
+            "prevMed":    [ 
+                "LabaLamaIcs"
                 ], 
-                [ 
+            "prevCopdGroup":    [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
-                    false, 
-                    true
-                ], 
-                [ 
+                "currCat":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
+                    true, 
+                    false
+                ], 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1783,35 +1764,35 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
-                    "Saba", 
-                    "Sama", 
-                    "SabaSama"
+            "constraintParam" : { 
+             "prevMed":   [ 
+                "Saba", 
+                "Sama", 
+                "SabaSama"
                 ], 
-                [ 
+                "prevCopdGroup":  [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102), 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":    [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1825,32 +1806,32 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
-                    "Laba", 
-                    "Lama", 
-                    "LabaLama"
+            "constraintParam" : { 
+             "prevMed":   [ 
+                "Laba", 
+                "Lama", 
+                "LabaLama"
                 ], 
-                [ 
+                "prevCopdGroup":  [ 
                     NumberLong(1097881000000104)
                 ], 
-                [ 
+                "currCat":     [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1866,27 +1847,30 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
-                    "Lama"
+            "constraintParam" : { 
+              "prevMed" : [ 
+                "Lama"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":     [ 
+                   
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
+                
                     false
                 ], 
-                [ 
+                "currExac": [ 
+                  
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1902,27 +1886,27 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+             "prevMed":   [ 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":    [ 
                     true
                 ], 
-                [ 
+                "currmMRC":[ 
                     false
                 ], 
-                [ 
+                "currExac":[ 
                     true
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1938,27 +1922,28 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":    [ 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup": [ 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":    [ 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true
                 ], 
-                [ 
+                "currExac": [ 
+                    
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -1974,27 +1959,27 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":  [ 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup":  [ 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":    [ 
                     true
                 ], 
-                [ 
+                "currmMRC":[ 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2010,27 +1995,28 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":  [ 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup":   [ 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":   [ 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
+                    
                     false
                 ], 
-                [ 
+                "currExac":[ 
                     true
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2046,27 +2032,27 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":  [ 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup":  [ 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":   [ 
                     true
                 ], 
-                [ 
+                "currmMRC": [ 
                     true
                 ], 
-                [ 
+                "currExac": [ 
                     true
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2080,27 +2066,28 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup":   [ 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":  [ 
                     true
                 ], 
-                [ 
+                "currmMRC":[ 
                     true
                 ], 
-                [ 
+                "currExac": [ 
+                  
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2114,34 +2101,34 @@
                     ]
                 ]
             ]
-        }, 
+        },
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":  [ 
                     "Saba", 
                     "Sama", 
                     "SabaSama"
                 ], 
-                [ 
+                "prevCopdGroup":   [ 
                     NumberLong(1097881000000104)
                 ], 
-                [ 
+                "currCat":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac": [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2159,190 +2146,178 @@
 
 {
     "_id" : ObjectId("60913a7370f808ab183ed43f"),
-    "parameter" : "copdGroupD",
+    "parameter" : "goldGroupD_treatmentPriorities",
     "cigInvolved" : [],
-    "pathList" : [ 
+    "dataPaths" : [  
         {
-            "label" : "previous medication",
+            "label" : "prevMed",
+            "description" : "returns COPD meds used prior to this COPD review. If none is found, it returns SABA drug type",
             "Jpath" : "context.medication.code.coding.code",
             "typeOf" : "string",
             "defaultVal" : "Saba",
             "required" : true
         }, 
         {
-            "label" : "previous COPD group code",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='1097861000000108'].valueCodeableConcept.coding.code",
+            "label" : "prevCopdGroup",
+            "description" : "returns COPD group of patient prior to this COPD review. If none is found, it returns COPD group A",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and resource.status='final' and '1097861000000108' in resource.code.coding[].code].*.valueCodeableConcept.coding.code",
             "typeOf" : "number",
             "defaultVal" : NumberLong(1097871000000101),
             "required" : true
         }, 
         {
-            "label" : "current CAT score value",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "label" : "currCat",
+            "description" : "returns CAT score taken at this COPD review. If not found, user has not inserted it yet",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
-            "label" : "previous CAT score value",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "label" : "prevCat",
+            "description" : "returns CAT score taken at previous COPD review. If none is found, it returns current CAT score",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='446660005'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '446660005' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
-            "label" : "current mMRC scale value",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "label" : "currMmrc",
+            "description" : "returns mMRC scale value taken at current COPD review. If not found, user has not inserted it yet",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
-            "label" : "previous mMRC scale value",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "label" : "prevMmrc",
+            "description" : "returns mMRC scale value taken at previous COPD review. If none is found, it returns value at current COPD review",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='450755002'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '450755002' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
-            "label" : "exacerbations within the last year",
-            "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "label" : "currExac",
+            "description" : "returns exacerbations within the last year.I f not found, it assumes value is zero",
+            "Jpath" : "context.currentAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
+            "defaultVal" : 0,
             "required" : true
         }, 
         {
-            "label" : "exacerbations at last visit",
-            "Jpath" : "context.previousAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "label" : "prevExac",
+            "description" : "returns exacerbations within the last year from previous visit. If none is found, it returns exacerbations counted at this visit",
+            "Jpath" : "context.previousAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.valueInteger",
             "typeOf" : "number",
-            "defaultVal" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding.code='723245007'].valueInteger",
+            "defaultVal" : "context.currentAssessment.entry[resource.resourceType='Observation' and '723245007' in resource.code.coding[].code].*.code.coding.code",
             "required" : true
         }, 
         {
             "label" : "asthma",
-            "Jpath" : "context.asthma.code.coding.code",
+            "description" : "query to find (boolean) whether any asthma code is present in the record",
+            "Jpath" : "$count(context.asthma.code.coding.code) > 0",
             "typeOf" : "boolean",
-            "defaultVal" : 0,
             "required" : false
         }
     ],
-    "actionList" : [ 
+    "actions" : [
         {
-            "action" : "inRHS",
+            "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    0
-                ],
-                "resultArgListIndex" : 0
+                "symbol" : "lte",
+                "arg1" : "currCat",
+                "arg2" : "prevCat"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    1
-                ],
-                "resultArgListIndex" : 1
+                "arg1" : "currCat",
+                "arg2" : "currCat"
             }
         }, 
         {
             "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    2, 
-                    3
-                ],
-                "compare" : "lte"
+                "compare" : "lte",
+                "arg1" : "currMmrc",
+                "arg2" : "prevMmrc"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    2
-                ],
-                "resultArgListIndex" : 2
+                "arg1" : "currMmrc",
+                "arg2" : "currMmrc"
             }
         }, 
         {
             "action" : "comparison",
             "details" : {
-                "pathListIndex" : [ 
-                    4, 
-                    5
-                ],
-                "compare" : "lte"
+                "symbol" : "lte",
+                "arg1" : "currExac",
+                "arg2" : "prevExac"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    4
-                ],
-                "resultArgListIndex" : 3
+                "arg1" : "currExac",
+                "arg2" : "currExac"
             }
         }, 
         {
-            "action" : "comparison",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    6, 
-                    7
-                ],
-                "compare" : "lte"
+                "arg1" : "asthma",
+                "arg2" : "asthma"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    6
-                ],
-                "resultArgListIndex" : 4
+                "arg1" : "prevMed",
+                "arg2" : "prevMed"
             }
         }, 
         {
-            "action" : "inRHS",
+            "action" : "in",
             "details" : {
-                "pathListIndex" : [ 
-                    8
-                ],
-                "resultArgListIndex" : 5
+                "arg1" : "prevCopdGroup",
+                "arg2" : "prevCopdGroup"
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [ 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "Saba", 
                     "Sama", 
                     "SabaSama", 
                     "Laba", 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup":  [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":    [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma":  [ 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2361,31 +2336,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":    [ 
                     "LabaLama"
                 ], 
-                [ 
+                "prevCopdGroup":  [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma":  [ 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2404,31 +2379,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "LabaLamaIcs"
                 ], 
-                [ 
+                "prevCopdGroup":    [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma":  [ 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2447,31 +2422,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "LabaIcs"
                 ], 
-                [ 
+                "prevCopdGroup":    [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":    [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma":   [ 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2490,8 +2465,8 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":   [ 
                     "Saba", 
                     "Sama", 
                     "SabaSama", 
@@ -2499,27 +2474,27 @@
                     "Lama", 
                     "LabaIcs"
                 ], 
-                [ 
+                "prevCopdGroup":    [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":     [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma":  [ 
                     true
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2538,31 +2513,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":   [ 
                     "LabaLama"
                 ], 
-                [ 
+                "prevCopdGroup":     [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":    [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma":  [ 
                     true
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2581,31 +2556,31 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "LabaLamaIcs"
                 ], 
-                [ 
+                "prevCopdGroup":    [ 
                     NumberLong(1097871000000101), 
                     NumberLong(1097881000000104), 
                     NumberLong(1097891000000102)
                 ], 
-                [ 
+                "currCat":      [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "asthma":  [ 
                     true
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2624,29 +2599,29 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup":      [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":      [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     true
                 ], 
-                [ 
+                "asthma":  [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2665,29 +2640,29 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed":  [ 
                     "Lama"
                 ], 
-                [ 
+                "prevCopdGroup":      [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":    [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     false
                 ], 
-                [ 
+                "asthma": "asthma":  [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2704,29 +2679,29 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "LabaLama"
                 ], 
-                [ 
+                "prevCopdGroup":     [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":     [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     false
                 ], 
-                [ 
+                "asthma":  [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2745,29 +2720,29 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "LabaLama"
                 ], 
-                [ 
+                "prevCopdGroup":     [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":     [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":   [ 
                     true
                 ], 
-                [ 
+                "asthma":  [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2786,28 +2761,28 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "LabaIcs"
                 ], 
-                [ 
+                "prevCopdGroup":     [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":      [ 
                     false
                 ], 
-                [ 
+                "currmMRC":    [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     false
                 ], 
-                [ 
+                "asthma":  [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2826,29 +2801,29 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "LabaIcs"
                 ], 
-                [ 
+                "prevCopdGroup":      [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":     [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     true
                 ], 
-                [ 
+                "asthma":  [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2867,28 +2842,28 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "LabaIcs"
                 ], 
-                [ 
+                "prevCopdGroup":       [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":   [ 
                     true
                 ], 
-                [ 
+                "currmMRC":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":   [ 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2907,29 +2882,29 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "LabaLamaIcs"
                 ], 
-                [ 
+                "prevCopdGroup":       [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":     [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     false
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
@@ -2948,29 +2923,29 @@
             ]
         }, 
         {
-            "argList" : [ 
-                [ 
+            "constraintParam" : { 
+                "prevMed": [ 
                     "LabaLamaIcs"
                 ], 
-                [ 
+                "prevCopdGroup":       [ 
                     NumberLong(1097901000000101)
                 ], 
-                [ 
+                "currCat":   [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currmMRC":  [ 
                     true, 
                     false
                 ], 
-                [ 
+                "currExac":  [ 
                     true
                 ], 
-                [ 
+                "asthma": [ 
                     true, 
                     false
                 ]
-            ],
+            },
             "outcome" : [ 
                 [ 
                     [ 
