@@ -46,7 +46,7 @@
 /* 2 */
 {
     "parameter" : "selected_copd_group",
-    "description": "GOLD group as selected by user"
+    "description": "GOLD group as selected by user triggers associated subguidelines"
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
@@ -718,11 +718,12 @@
 /* 11 */
 {
     "parameter" : "cds_suggested_preference_order",
+    "description": "suggested treatments by cds system",
     "cigInvolved" : [],
     "dataPaths" : [ 
         {
             "label" : "CdsSuggestedMeds",
-            "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code",
+            "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding[].code",
             "typeOf" : "string",
             "required" : true
         }

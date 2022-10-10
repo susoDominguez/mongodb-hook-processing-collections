@@ -1,43 +1,41 @@
 /* 1 */
 {
-    "_id" : ObjectId("5f96f45040e8fcddde4d0bb9"),
     "parameter" : "comorbidities",
+    "description": "finds available codes within comorbidities to activate related guidelines",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
-            "label" : "comorbidities_codes",
+            "label" : "codes",
             "Jpath" : "context.comorbidities.entry.resource.code.coding.code",
             "typeOf" : "number",
-            "defaultVal" : 0,
             "required" : false
         }
     ],
-    "actionList" : [ 
+    "actions" : [ 
         {
-            "action" : "inLHS",
+            "action" : "is_a",
             "details" : {
-                "resultArgListIndex" : 0,
-                "pathListIndex" : [ 
-                    0
-                ]
+                "arg1" : "codes",
+                "arg2" : "codes",
+                "termSystem" :"SCT"
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [ 
         {
-            "argList" : [ 
-                709044004
-            ],
+            "constraintsParam" : {
+               "codes": 709044004
+        },
             "outcome" : [ 
                 "subCIG-Ckd"
             ]
         }, 
         {
-            "argList" : [ 
-                49601007
-            ],
+            "constraintsParam" : {
+                "codes": 49601007
+            },
             "outcome" : [ 
                 "subCIG-Cvd"
             ]
@@ -47,62 +45,59 @@
 
 /* 2 */
 {
-    "_id" : ObjectId("5f96f83240e8fcddde4d0cc7"),
-    "parameter" : "recommendationsBySelectedCopdGroup",
+    "parameter" : "selected_copd_group",
+    "description": "GOLD group as selected by user triggers associated subguidelines"
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
             "label" : "copd_group_code",
-            "Jpath" : "context.copdAssessment.entry.resource[code.coding.code='1097861000000108'].valueCodeableConcept.coding.code",
+            "Jpath" : "context.copdAssessment.entry.resource[code.coding.code='1097861000000108'].valueCodeableConcept.coding[].code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }
     ],
-    "actionList" : [ 
+    "actions" : [ 
         {
-            "action" : "inLHS",
+            "action" : "inLhs",
             "details" : {
-                "resultArgListIndex" : 0,
-                "pathListIndex" : [ 
-                    0
-                ]
+                "arg1" : "copd_group_code",
+                "arg2" : "copd_group_code"
             }
         }
     ],
     "resultList" : [ 
         {
-            "argList" : [ 
-                NumberLong(1097871000000101)
-            ],
+            "constraintParam" : {
+                "copd_group_code": NumberLong(1097871000000101)
+            },
             "outcome" : [ 
-                "subCIG-Group_A"
+                "subCIG-Group_A", "subCIG-Core"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097881000000104)
-            ],
+            "constraintParam" : { 
+                "copd_group_code" NumberLong(1097881000000104)
+        },
             "outcome" : [ 
-                "subCIG-Group_B"
+                "subCIG-Group_B", "subCIG-Core"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097891000000102)
-            ],
+            "constraintParam" : { 
+                "copd_group_code" NumberLong(1097891000000102)
+        },
             "outcome" : [ 
-                "subCIG-Group_C"
+                "subCIG-Group_C", "subCIG-Core"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097901000000101)
-            ],
+            "constraintParam" : {
+                "copd_group_code" NumberLong(1097901000000101)
+            },
             "outcome" : [ 
-                "subCIG-Group_D"
+                "subCIG-Group_D", "subCIG-Core"
             ]
         }
     ]
@@ -110,206 +105,201 @@
 
 /* 3 */
 {
-    "_id" : ObjectId("5f96f84840e8fcddde4d0cd1"),
+
     "parameter" : "recommendationsDrugsOutsideCopdGroup",
+    "description": "selects additional personalised treatments that are not originally part of the selected GOLD group",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
             "label" : "copd_group_clinical_code",
-            "Jpath" : "context.copdAssessment.entry.resource[code.coding.code='1097861000000108'].valueCodeableConcept.coding.code",
+            "Jpath" : "context.copdAssessment.entry.resource[code.coding.code='1097861000000108'].valueCodeableConcept.coding[].code",
             "typeOf" : "number",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
             "label" : "allDistinctDrugs",
-            "Jpath" : "$distinct($append(context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code,context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding.code))",
-            "defaultVal" : undefined,
+            "Jpath" : "$distinct($append(context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code,context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding[].code))",
             "typeOf" : "string",
             "required" : true
         }
     ],
     "actionList" : [ 
         {
-            "action" : "inLHS",
+            "action" : "inLhs",
             "details" : {
-                "resultArgListIndex" : 0,
-                "pathListIndex" : [ 
-                    0
-                ]
+                "arg1" : "copd_group_clinical_code",
+                "arg2" : "copd_group_clinical_code"
             }
         }, 
         {
-            "action" : "inLHS",
+            "action" : "inLhs",
             "details" : {
-                "resultArgListIndex" : 1,
-                "pathListIndex" : [ 
-                    1
-                ]
+                "arg1" : "allDistinctDrugs",
+                "arg2" : "allDistinctDrugs"
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [  
         {
-            "argList" : [ 
-                NumberLong(1097871000000101), 
-                "Laba"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":  NumberLong(1097871000000101), 
+            "allDistinctDrugs":  "Laba"
+        },
             "outcome" : [ 
                 "subCIG-Group_A.Laba"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097871000000101), 
-                "Lama"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":  NumberLong(1097871000000101), 
+            "allDistinctDrugs":  "Lama"
+        },
             "outcome" : [ 
                 "subCIG-Group_A.Lama"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097871000000101), 
-                "LabaLama"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":   NumberLong(1097871000000101), 
+                "allDistinctDrugs":  "LabaLama"
+        },
             "outcome" : [ 
                 "subCIG-Group_A.LabaLama"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097871000000101), 
-                "LabaLamaIcs"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":    NumberLong(1097871000000101), 
+            "allDistinctDrugs":  "LabaLamaIcs"
+        },
             "outcome" : [ 
                 "subCIG-Group_A.LabaLamaIcs"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097871000000101), 
-                "LabaIcs"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":    NumberLong(1097871000000101), 
+            "allDistinctDrugs":  "LabaIcs"
+        },
             "outcome" : [ 
                 "subCIG-Group_A.LabaIcs"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097881000000104), 
-                "Saba"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":   NumberLong(1097881000000104), 
+            "allDistinctDrugs":  "Saba"
+        },
             "outcome" : [ 
                 "subCIG-Group_B.Saba"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097881000000104), 
-                "Sama"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":     NumberLong(1097881000000104), 
+            "allDistinctDrugs":   "Sama"
+        },
             "outcome" : [ 
                 "subCIG-Group_B.Sama"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097881000000104), 
-                "SabaSama"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":   NumberLong(1097881000000104), 
+            "allDistinctDrugs":  "SabaSama"
+        },
             "outcome" : [ 
                 "subCIG-Group_B.SabaSama"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097881000000104), 
-                "LabaLamaIcs"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":     NumberLong(1097881000000104), 
+            "allDistinctDrugs":   "LabaLamaIcs"
+        },
             "outcome" : [ 
                 "subCIG-Group_B.LabaLamaIcs"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097881000000104), 
-                "LabaIcs"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":   NumberLong(1097881000000104), 
+            "allDistinctDrugs":    "LabaIcs"
+        },
             "outcome" : [ 
                 "subCIG-Group_B.LabaIcs"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097891000000102), 
-                "Saba"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":   NumberLong(1097891000000102), 
+            "allDistinctDrugs":   "Saba"
+        },
             "outcome" : [ 
                 "subCIG-Group_C.Saba"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097891000000102), 
-                "Sama"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":   NumberLong(1097891000000102), 
+            "allDistinctDrugs":    "Sama"
+        },
             "outcome" : [ 
                 "subCIG-Group_C.Sama"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097891000000102), 
-                "SabaSama"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":   NumberLong(1097891000000102), 
+            "allDistinctDrugs":   "SabaSama"
+        },
             "outcome" : [ 
                 "subCIG-Group_C.SabaSama"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097891000000102), 
-                "Laba"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":   NumberLong(1097891000000102), 
+            "allDistinctDrugs":   "Laba"
+        },
             "outcome" : [ 
                 "subCIG-Group_C.LabaLamaIcs"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097901000000101), 
-                "Laba"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":   NumberLong(1097901000000101), 
+            "allDistinctDrugs":    "Laba"
+        },
             "outcome" : [ 
                 "subCIG-Group_D.Laba"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097901000000101), 
-                "Saba"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":    NumberLong(1097901000000101), 
+            "allDistinctDrugs":   "Saba"
+        },
             "outcome" : [ 
                 "subCIG-Group_D.Saba"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097901000000101), 
-                "Sama"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":   NumberLong(1097901000000101), 
+            "allDistinctDrugs":   "Sama"
+        },
             "outcome" : [ 
                 "subCIG-Group_D.Sama"
             ]
         }, 
         {
-            "argList" : [ 
-                NumberLong(1097901000000101), 
-                "SabaSama"
-            ],
+           "constraintsParam": { 
+            "copd_group_clinical_code":   NumberLong(1097901000000101), 
+            "allDistinctDrugs":    "SabaSama"
+        },
             "outcome" : [ 
                 "subCIG-Group_D.SabaSama"
             ]
@@ -317,49 +307,28 @@
     ]
 }
 
-/* 4 */
-{
-    "_id" : ObjectId("5f97006e1094e26d45ef9d04"),
-    "parameter" : "core",
-    "cigInvolved" : [ 
-        "CIG-COPD"
-    ],
-    "pathList" : [],
-    "actionList" : [],
-    "resultList" : [ 
-        {
-            "argList" : [],
-            "outcome" : [ 
-                "subCIG-Core"
-            ]
-        }
-    ]
-}
-
 /* 5 */
 {
-    "_id" : ObjectId("5f97006e1094e26d45ef9d05"),
     "parameter" : "smoking_status",
+    "description": "query context to find out smoking status of patient",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
             "label" : "smoking_status_code",
-            "Jpath" : "context.smokingStatus.valueCodeableConcept.coding.code",
+            "Jpath" : "context.smokingStatus.valueCodeableConcept.coding[].code",
             "typeOf" : "number",
-            "defaultVal" : [ 
-                8392000
-            ],
+            "defaultVal" : [8392000],
             "required" : false
         }
     ],
-    "actionList" : [ 
+    "actions" : [ 
         {
-            "action" : "inLHS",
+            "action" : "inLhs",
             "details" : {
                 "resultArgListIndex" : 0,
-                "pathListIndex" : [ 
+                "dataPathsIndex" : [ 
                     0
                 ]
             }
@@ -367,9 +336,9 @@
     ],
     "resultList" : [ 
         {
-            "argList" : [ 
-                77176002
-            ],
+           "constraintsParam": { 
+            "smoking_status_code":  77176002
+        },
             "outcome" : [ 
                 "subCIG-Smoker"
             ]
@@ -379,37 +348,35 @@
 
 /* 6 */
 {
-    "_id" : ObjectId("5f97006e1094e26d45ef9d06"),
     "parameter" : "influenza_immunization",
+    "description": "finds influenza immunization codes in hook context",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
-            "label" : "influenza status",
+            "label" : "influenzaStatus",
             "Jpath" : "context.immunizationStatus.entry.resource[vaccineCode.coding.code='1181000221105'].status",
             "typeOf" : "string",
             "defaultVal" : "not-done",
             "required" : true
         }
     ],
-    "actionList" : [ 
+    "actions" : [ 
         {
-            "action" : "comparison",
+            "action" : "Qomparison",
             "details" : {
-                "resultArgListIndex" : 0,
+                "arg1" : "influenzaStatus",
                 "compare" : "eq",
-                "pathListIndex" : [ 
-                    0
-                ]
+                "arg2" : "influenzaStatus"
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [ 
         {
-            "argList" : [ 
-                "not-done"
-            ],
+           "constraintsParam": { 
+            "influenzaStatus": "not-done"
+        },
             "outcome" : [ 
                 "subCIG-FluVac"
             ]
@@ -419,64 +386,57 @@
 
 /* 7 */
 {
-    "_id" : ObjectId("5f97006e1094e26d45ef9d07"),
     "parameter" : "pneumococcal_immunization",
+    "description": "finds codes for pneumococcal codes in the hook context",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
-            "label" : "immunization status",
+            "label" : "immunizationStatus",
             "typeOf" : "string",
             "Jpath" : "context.immunizationStatus.entry.resource[vaccineCode.coding.code='333598008'].status",
             "defaultVal" : "not-done",
             "required" : false
         }, 
         {
-            "label" : "date of birth",
+            "label" : "dateOfBirth",
             "Jpath" : "context.birthDate",
             "typeOf" : "date",
-            "defaultVal" : undefined,
             "required" : true
         }
     ],
-    "actionList" : [ 
+    "actions" : [ 
         {
             "action" : "function",
             "details" : {
                 "function_name" : "calculate_age",
-                "pathListIndex" : [ 
-                    1
-                ]
+                "arg1" : "dateOfBirth"
             }
         }, 
         {
-            "action" : "comparison",
+            "action" : "Qomparison",
             "details" : {
-                "pathListIndex" : [ 
-                    1
-                ],
+                "arg1" : "dateOfBirth",
                 "compare" : "gte",
-                "resultArgListIndex" : 0
+                "arg2" : "dateOfBirth"
             }
         }, 
         {
-            "action" : "comparison",
+            "action" : "Qomparison",
             "details" : {
-                "pathListIndex" : [ 
-                    0
-                ],
+                "arg1" : "immunizationStatus",
                 "compare" : "eq",
-                "resultArgListIndex" : 1
+                "arg2" : "immunizationStatus"
             }
         }
     ],
     "resultList" : [ 
         {
-            "argList" : [ 
-                65, 
-                "not-done"
-            ],
+           "constraintsParam": { 
+            "dateOfBirth": 65, 
+            "immunizationStatus": "not-done"
+        },
             "outcome" : [ 
                 "subCIG-PneumnVac"
             ]
@@ -486,72 +446,62 @@
 
 /* 8 */
 {
-    "_id" : ObjectId("604b68de919b13b326fb9e60"),
     "parameter" : "patientId",
+    "description" : "finds patient identifier",
     "cigInvolved" : [],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
-            "label" : "patient Id",
+            "label" : "patientId",
             "Jpath" : "context.patientId",
             "typeOf" : "string",
-            "defaultVal" : undefined,
-            "required" : false
+            "required" : true
         }
-    ],
-    "actionList" : [],
-    "resultList" : []
+    ]
 }
 
 /* 9 */
 {
     "_id" : ObjectId("6051de659e1a873cb1818822"),
     "parameter" : "alternativeTreatmentPathways",
+    "description": "treatments selected by user",
     "cigInvolved" : [],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
-            "label" : "selected meds",
+            "label" : "selectedMeds",
             "Jpath" : "context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding.code",
             "typeOf" : "string",
-            "defaultVal" : undefined,
             "required" : true
         }, 
         {
-            "label" : "cdss suggested meds",
+            "label" : "cdsSuggestedMeds",
             "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code",
-            "defaultVal" : undefined,
             "typeOf" : "string",
             "required" : true
         }
     ],
-    "actionList" : [ 
+    "actions" : [ 
         {
             "action" : "function",
             "details" : {
                 "function_name" : "arr_diff_nonSymm",
-                "pathListIndex" : [ 
-                    1, 
-                    0
-                ]
+                "arg1" : "cdsSuggestedMeds",
+                "arg2": "selectedMeds"
             }
         }
-    ],
-    "resultList" : []
+    ]
 }
 
 /* 10 */
 {
-    "_id" : ObjectId("61a0d1a0c165b1ae106f9e02"),
     "parameter" : "selectedTreatmentPathways",
+    "description": "list of selected treatments by user",
     "cigInvolved" : [],
     "pathList" : [ 
         {
-            "label" : "selected meds",
-            "Jpath" : "context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding.code",
+            "label" : "userSelectedMeds",
+            "Jpath" : "context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding[].code",
             "typeOf" : "string",
-            "defaultVal" : undefined,
             "required" : true
         }
-    ],
-    "actionList" : [],
-    "resultList" : []
+    ]
 }
