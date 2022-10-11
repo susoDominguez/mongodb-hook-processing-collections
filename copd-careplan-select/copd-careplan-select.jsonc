@@ -335,10 +335,8 @@
         {
             "action" : "inLhs",
             "details" : {
-                "resultArgListIndex" : 0,
-                "dataPathsIndex" : [ 
-                    0
-                ]
+                "arg1" : "smoking_status_code",
+                "arg2" : "smoking_status_code"
             }
         }
     ],
