@@ -418,7 +418,7 @@
         {
             "action" : "function",
             "details" : {
-                "function_name" : "calculate_age",
+                "symbol" : "calculate_age",
                 "arg1" : "dateOfBirth"
             }
         }, 
@@ -490,7 +490,7 @@
         {
             "action" : "function",
             "details" : {
-                "function_name" : "arr_diff_nonSymm",
+                "symbol" : "arr_diff_nonSymm",
                 "arg1" : "cdsSuggestedMeds",
                 "arg2": "selectedMeds"
             }
@@ -529,7 +529,7 @@
         {
             "action" : "function",
             "details" : {
-                "function_name" : "arr_diff_nonSymm",
+                "symbol" : "arr_diff_nonSymm",
                 "arg1": "selectedMeds",
                 "arg2": "cdsSuggestedMeds"
             }

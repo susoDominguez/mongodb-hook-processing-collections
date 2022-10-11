@@ -327,10 +327,8 @@
         {
             "action" : "inLhs",
             "details" : {
-                "resultArgListIndex" : 0,
-                "dataPathsIndex" : [ 
-                    0
-                ]
+                "arg1": "smoking_status_code",
+                "arg2": "smoking_status_code"
             }
         }
     ],
@@ -367,8 +365,8 @@
             "action" : "Qomparison",
             "details" : {
                 "arg1" : "influenzaStatus",
-                "compare" : "eq",
-                "arg2" : "influenzaStatus"
+                "arg2" : "influenzaStatus",
+                "symbol" : "eq"
             }
         }
     ],
@@ -410,7 +408,7 @@
         {
             "action" : "function",
             "details" : {
-                "function_name" : "calculate_age",
+                "symbol" : "calculate_age",
                 "arg1" : "dateOfBirth"
             }
         }, 
@@ -418,16 +416,16 @@
             "action" : "Qomparison",
             "details" : {
                 "arg1" : "dateOfBirth",
-                "compare" : "gte",
-                "arg2" : "dateOfBirth"
+                "arg2" : "dateOfBirth",
+                "symbol" : "gte"
             }
         }, 
         {
             "action" : "Qomparison",
             "details" : {
                 "arg1" : "immunizationStatus",
-                "compare" : "eq",
-                "arg2" : "immunizationStatus"
+                "arg2" : "immunizationStatus",
+                "symbol": "eq"
             }
         }
     ],
@@ -482,7 +480,7 @@
         {
             "action" : "function",
             "details" : {
-                "function_name" : "arr_diff_nonSymm",
+                "symbol" : "arr_diff_nonSymm",
                 "arg1" : "cdsSuggestedMeds",
                 "arg2": "selectedMeds"
             }
