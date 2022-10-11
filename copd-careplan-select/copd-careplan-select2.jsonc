@@ -23,9 +23,9 @@
             }
         }
     ],
-    "output" : [ 
+    "constraints" : [ 
         {
-            "constraintsParam" : {
+            "dataPathRef" : {
                "codes": 709044004
         },
             "outcome" : [ 
@@ -33,7 +33,7 @@
             ]
         }, 
         {
-            "constraintsParam" : {
+            "dataPathRef" : {
                 "codes": 49601007
             },
             "outcome" : [ 
@@ -67,9 +67,9 @@
             }
         }
     ],
-    "resultList" : [ 
+    "constraints" : [ 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "copd_group_code": NumberLong(1097871000000101)
             },
             "outcome" : [ 
@@ -77,7 +77,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "copd_group_code" NumberLong(1097881000000104)
         },
             "outcome" : [ 
@@ -85,7 +85,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "copd_group_code" NumberLong(1097891000000102)
         },
             "outcome" : [ 
@@ -93,7 +93,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "copd_group_code" NumberLong(1097901000000101)
             },
             "outcome" : [ 
@@ -141,9 +141,9 @@
             }
         }
     ],
-    "output" : [  
+    "constraints" : [  
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":  NumberLong(1097871000000101), 
             "allDistinctDrugs":  "Laba"
         },
@@ -152,7 +152,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":  NumberLong(1097871000000101), 
             "allDistinctDrugs":  "Lama"
         },
@@ -161,7 +161,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":   NumberLong(1097871000000101), 
                 "allDistinctDrugs":  "LabaLama"
         },
@@ -170,7 +170,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":    NumberLong(1097871000000101), 
             "allDistinctDrugs":  "LabaLamaIcs"
         },
@@ -179,7 +179,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":    NumberLong(1097871000000101), 
             "allDistinctDrugs":  "LabaIcs"
         },
@@ -188,7 +188,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":   NumberLong(1097881000000104), 
             "allDistinctDrugs":  "Saba"
         },
@@ -197,7 +197,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":     NumberLong(1097881000000104), 
             "allDistinctDrugs":   "Sama"
         },
@@ -206,7 +206,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":   NumberLong(1097881000000104), 
             "allDistinctDrugs":  "SabaSama"
         },
@@ -215,7 +215,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":     NumberLong(1097881000000104), 
             "allDistinctDrugs":   "LabaLamaIcs"
         },
@@ -224,7 +224,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":   NumberLong(1097881000000104), 
             "allDistinctDrugs":    "LabaIcs"
         },
@@ -233,7 +233,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":   NumberLong(1097891000000102), 
             "allDistinctDrugs":   "Saba"
         },
@@ -242,7 +242,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":   NumberLong(1097891000000102), 
             "allDistinctDrugs":    "Sama"
         },
@@ -251,7 +251,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":   NumberLong(1097891000000102), 
             "allDistinctDrugs":   "SabaSama"
         },
@@ -260,7 +260,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":   NumberLong(1097891000000102), 
             "allDistinctDrugs":   "Laba"
         },
@@ -269,7 +269,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":   NumberLong(1097901000000101), 
             "allDistinctDrugs":    "Laba"
         },
@@ -278,7 +278,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":    NumberLong(1097901000000101), 
             "allDistinctDrugs":   "Saba"
         },
@@ -287,7 +287,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":   NumberLong(1097901000000101), 
             "allDistinctDrugs":   "Sama"
         },
@@ -296,7 +296,7 @@
             ]
         }, 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "copd_group_clinical_code":   NumberLong(1097901000000101), 
             "allDistinctDrugs":    "SabaSama"
         },
@@ -334,9 +334,9 @@
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [ 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "smoking_status_code":  77176002
         },
             "outcome" : [ 
@@ -372,9 +372,9 @@
             }
         }
     ],
-    "output" : [ 
+    "constraints" : [ 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "influenzaStatus": "not-done"
         },
             "outcome" : [ 
@@ -431,9 +431,9 @@
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [ 
         {
-           "constraintsParam": { 
+           "dataPathRef": { 
             "dateOfBirth": 65, 
             "immunizationStatus": "not-done"
         },
@@ -495,7 +495,7 @@
     "parameter" : "selectedTreatmentPathways",
     "description": "list of selected treatments by user",
     "cigInvolved" : [],
-    "pathList" : [ 
+    "dataPaths" : [ 
         {
             "label" : "userSelectedMeds",
             "Jpath" : "context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding[].code",

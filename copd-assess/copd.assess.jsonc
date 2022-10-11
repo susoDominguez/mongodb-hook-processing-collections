@@ -91,9 +91,9 @@
             }
         }
     ],
-    "output" : [ 
+    "constraints" : [ 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "exacerbations" : true,
                 "currCAT" : true,
                 "currMmrc" : true
@@ -103,7 +103,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "exacerbations" : true,
                 "currCAT" : false,
                 "currMmrc" : false
@@ -113,7 +113,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "exacerbations" : false,
                 "currCAT" : true,
                 "currMmrc" : true
@@ -123,7 +123,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "exacerbations" : false,
                 "currCAT" : false,
                 "currMmrc" : false
@@ -133,7 +133,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "exacerbations" : true,
                 "currCAT" : true,
                 "currMmrc" : false
@@ -143,7 +143,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "exacerbations" : true,
                 "currCAT" : false,
                 "currMmrc" : true
@@ -153,7 +153,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "exacerbations" : false,
                 "currCAT" : true,
                 "currMmrc" : false
@@ -163,7 +163,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "exacerbations" : false,
                 "currCAT" : false,
                 "currMmrc" : true
@@ -174,7 +174,6 @@
         }
     ]
 }
-
 
 {
     "parameter" : "goldGroupA_treatmentPriorities",
@@ -319,9 +318,9 @@
             }
         }
     ],
-    "output" : [ 
+    "constraints" : [ 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "prevMed" : [ 
                     "Saba"
                 ],
@@ -357,7 +356,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "prevMed" : [ 
                     "Sama"
                 ],
@@ -396,7 +395,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "prevMed" : [ 
                     "Sama"
                 ],
@@ -435,7 +434,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "prevMed" : [ 
                     "Saba"
                 ],
@@ -474,7 +473,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "prevMed" : [ 
                     "SabaSama"
                 ],
@@ -514,7 +513,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "prevMed" : [ 
                     "Laba"
                 ],
@@ -557,7 +556,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "prevMed" : [ 
                     "LabaLama"
                 ],
@@ -600,7 +599,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "prevMed" : [ 
                     "Lama"
                 ],
@@ -643,7 +642,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "prevMed" : [ 
                     "LabaIcs"
                 ],
@@ -686,7 +685,7 @@
             ]
         }, 
         {
-            "constraintParam" : {
+            "dataPathRef" : {
                 "prevMed" : [ 
                     "LabaLamaIcs"
                 ],
@@ -874,9 +873,9 @@
             }
         }
     ],
-    "output" : [
+    "constraints" : [
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                "prevMed": [ 
                     "Saba", 
                     "SabaSama", 
@@ -918,7 +917,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                "prevMed": [ 
                     "Saba", 
                     "Sama", 
@@ -961,7 +960,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":  [ 
                     "LabaLamaIcs"
                 ], 
@@ -998,7 +997,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
               "prevMed":  [ 
                     "Laba"
                 ], 
@@ -1037,7 +1036,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
             "prevMed":    [ 
                     "Lama"
                 ], 
@@ -1076,7 +1075,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
              "prevMed":   [ 
                     "LabaLama"
                 ], 
@@ -1113,7 +1112,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
              "prevMed":   [ 
                     "LabaIcs"
                 ], 
@@ -1155,7 +1154,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
               "prevMed" : [ 
                     "LabaLamaIcs"
                 ], 
@@ -1197,7 +1196,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
              "prevMed":   [ 
                     "Laba"
                 ], 
@@ -1235,7 +1234,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":    [ 
                     "Laba"
                 ], 
@@ -1273,7 +1272,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":  [ 
                     "Lama"
                 ], 
@@ -1311,7 +1310,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":  [ 
                     "Lama"
                 ], 
@@ -1349,7 +1348,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":  [ 
                     "LabaLama"
                 ], 
@@ -1387,7 +1386,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "LabaLama"
                 ], 
@@ -1570,9 +1569,9 @@
             }
         }
     ],
-    "output" : [ 
+    "constraints" : [ 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                "prevMed": [     "LabaLama"
                 ], 
                 "prevCopdGroup": [ 
@@ -1608,7 +1607,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                "prevMed": [ 
                 "LabaIcs"
                 ], 
@@ -1648,7 +1647,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":  [ 
                     "Lama"
                 ], 
@@ -1687,7 +1686,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
               "prevMed":  [ 
                 "LabaIcs"
                 ], 
@@ -1724,7 +1723,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
             "prevMed":    [ 
                 "LabaLamaIcs"
                 ], 
@@ -1764,7 +1763,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
              "prevMed":   [ 
                 "Saba", 
                 "Sama", 
@@ -1806,7 +1805,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
              "prevMed":   [ 
                 "Laba", 
                 "Lama", 
@@ -1847,7 +1846,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
               "prevMed" : [ 
                 "Lama"
                 ], 
@@ -1886,7 +1885,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
              "prevMed":   [ 
                     "Lama"
                 ], 
@@ -1922,7 +1921,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":    [ 
                     "Lama"
                 ], 
@@ -1959,7 +1958,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":  [ 
                     "Lama"
                 ], 
@@ -1995,7 +1994,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":  [ 
                     "Lama"
                 ], 
@@ -2032,7 +2031,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":  [ 
                     "Lama"
                 ], 
@@ -2066,7 +2065,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "Lama"
                 ], 
@@ -2103,7 +2102,7 @@
             ]
         },
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":  [ 
                     "Saba", 
                     "Sama", 
@@ -2287,9 +2286,9 @@
             }
         }
     ],
-    "output" : [ 
+    "constraints" : [ 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "Saba", 
                     "Sama", 
@@ -2336,7 +2335,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":    [ 
                     "LabaLama"
                 ], 
@@ -2379,7 +2378,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "LabaLamaIcs"
                 ], 
@@ -2422,7 +2421,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "LabaIcs"
                 ], 
@@ -2465,7 +2464,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":   [ 
                     "Saba", 
                     "Sama", 
@@ -2513,7 +2512,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":   [ 
                     "LabaLama"
                 ], 
@@ -2556,7 +2555,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "LabaLamaIcs"
                 ], 
@@ -2599,7 +2598,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "Lama"
                 ], 
@@ -2640,7 +2639,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed":  [ 
                     "Lama"
                 ], 
@@ -2679,7 +2678,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "LabaLama"
                 ], 
@@ -2720,7 +2719,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "LabaLama"
                 ], 
@@ -2761,7 +2760,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "LabaIcs"
                 ], 
@@ -2801,7 +2800,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "LabaIcs"
                 ], 
@@ -2842,7 +2841,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "LabaIcs"
                 ], 
@@ -2882,7 +2881,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "LabaLamaIcs"
                 ], 
@@ -2923,7 +2922,7 @@
             ]
         }, 
         {
-            "constraintParam" : { 
+            "dataPathRef" : { 
                 "prevMed": [ 
                     "LabaLamaIcs"
                 ], 
