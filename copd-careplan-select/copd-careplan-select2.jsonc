@@ -46,7 +46,7 @@
 /* 2 */
 {
     "parameter" : "selected_copd_group",
-    "description": "GOLD group as selected by user triggers associated subguidelines"
+    "description": "GOLD group as selected by user triggers associated subguidelines",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
@@ -78,7 +78,7 @@
         }, 
         {
             "dataPathRef" : { 
-                "copd_group_code" NumberLong(1097881000000104)
+                "copd_group_code": NumberLong(1097881000000104)
         },
             "outcome" : [ 
                 "subCIG-Group_B", "subCIG-Core"
@@ -86,7 +86,7 @@
         }, 
         {
             "dataPathRef" : { 
-                "copd_group_code" NumberLong(1097891000000102)
+                "copd_group_code": NumberLong(1097891000000102)
         },
             "outcome" : [ 
                 "subCIG-Group_C", "subCIG-Core"
@@ -94,7 +94,7 @@
         }, 
         {
             "dataPathRef" : {
-                "copd_group_code" NumberLong(1097901000000101)
+                "copd_group_code": NumberLong(1097901000000101)
             },
             "outcome" : [ 
                 "subCIG-Group_D", "subCIG-Core"
@@ -125,7 +125,7 @@
             "required" : true
         }
     ],
-    "actionList" : [ 
+    "actions" : [ 
         {
             "action" : "inLhs",
             "details" : {
@@ -334,7 +334,7 @@
             }
         }
     ],
-    "output" : [ 
+    "constraints" : [ 
         {
            "dataPathRef": { 
             "smoking_status_code":  77176002
@@ -431,7 +431,7 @@
             }
         }
     ],
-    "output" : [ 
+    "constraints" : [ 
         {
            "dataPathRef": { 
             "dateOfBirth": 65, 
