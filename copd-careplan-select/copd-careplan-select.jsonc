@@ -78,7 +78,7 @@
         }, 
         {
             "constraintParam" : { 
-                "copd_group_code" NumberLong(1097881000000104)
+                "copd_group_code": NumberLong(1097881000000104)
         },
             "outcome" : [ 
                 "subCIG-Group_B", "subCIG-Core"
@@ -86,7 +86,7 @@
         }, 
         {
             "constraintParam" : { 
-                "copd_group_code" NumberLong(1097891000000102)
+                "copd_group_code": NumberLong(1097891000000102)
         },
             "outcome" : [ 
                 "subCIG-Group_C", "subCIG-Core"
@@ -94,7 +94,7 @@
         }, 
         {
             "constraintParam" : {
-                "copd_group_code" NumberLong(1097901000000101)
+                "copd_group_code": NumberLong(1097901000000101)
             },
             "outcome" : [ 
                 "subCIG-Group_D", "subCIG-Core"

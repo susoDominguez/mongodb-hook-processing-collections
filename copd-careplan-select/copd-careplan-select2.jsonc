@@ -461,7 +461,6 @@
 
 /* 9 */
 {
-    "_id" : ObjectId("6051de659e1a873cb1818822"),
     "parameter" : "alternativeTreatmentPathways",
     "description": "treatments selected by user",
     "cigInvolved" : [],
