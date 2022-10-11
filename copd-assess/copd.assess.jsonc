@@ -87,7 +87,7 @@
             "details" : {
                 "arg2" : "mMRC",
                 "arg1" : "mMRC",
-                "symbol" : "in",
+                "symbol" : "in"
             }
         }
     ],
@@ -733,7 +733,7 @@
 
 {
     "parameter" : "goldGroupB_treatmentPriorities",
-    "description" : "prioritises COPD group A drug pathways using current patient context",
+    "description" : "prioritises COPD group B drug pathways using current patient context",
     "cigInvolved" : [],
     "dataPaths" : [ 
         {
@@ -1156,7 +1156,7 @@
         }, 
         {
             "constraintParam" : { 
-              "prevMed"  [ 
+              "prevMed" : [ 
                     "LabaLamaIcs"
                 ], 
                 "prevCopdGroup": [ 
@@ -1428,8 +1428,8 @@
 }
 
 {
-    "_id" : ObjectId("60913a6470f808ab183ed433"),
     "parameter" : "goldGroupC_treatmentPriorities",
+    "description" : "prioritises COPD group C drug pathways using current patient context",
     "cigInvolved" : [],
     "dataPaths" : [ 
         {
@@ -2145,8 +2145,8 @@
 }
 
 {
-    "_id" : ObjectId("60913a7370f808ab183ed43f"),
     "parameter" : "goldGroupD_treatmentPriorities",
+    "description" : "prioritises COPD group D drug pathways using current patient context",
     "cigInvolved" : [],
     "dataPaths" : [  
         {
@@ -2658,7 +2658,7 @@
                 "currExac":  [ 
                     false
                 ], 
-                "asthma": "asthma":  [ 
+                "asthma":  [ 
                     true, 
                     false
                 ]
