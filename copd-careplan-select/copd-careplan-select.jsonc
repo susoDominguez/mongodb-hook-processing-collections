@@ -46,7 +46,7 @@
 /* 2 */
 {
     "parameter" : "selected_copd_group",
-    "description": "GOLD group as selected by user triggers associated subguidelines"
+    "description": "GOLD group as selected by user triggers associated subguidelines",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
@@ -67,7 +67,7 @@
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [ 
         {
             "constraintParam" : {
                 "copd_group_code": NumberLong(1097871000000101)
@@ -342,7 +342,7 @@
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [ 
         {
            "constraintsParam": { 
             "smoking_status_code":  77176002
@@ -439,7 +439,7 @@
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [ 
         {
            "constraintsParam": { 
             "dateOfBirth": 65, 
@@ -549,7 +549,7 @@
             }
         }
     ],
-    "resultList" : [ 
+    "output" : [ 
         {
            "constraintsParam": { 
             "copd_group_clinical_code":  NumberLong(1097871000000101), 
