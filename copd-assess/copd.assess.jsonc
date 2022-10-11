@@ -27,7 +27,7 @@
             "required" : true
         }, 
         {
-            "label" : "CAT",
+            "label" : "currCAT",
             "description" : "current CAT score",
             "Jpath" : "context.currentAssessment.entry.resource[resourceType='Observation' and code.coding[code='446660005']].valueInteger",
             "typeOf" : "number",
@@ -54,7 +54,7 @@
             "action" : "comparison",
             "details" : {
                 "symbol" : "lt",
-                "arg1" : "CAT",
+                "arg1" : "currCAT",
                 "arg2" : 10
             }
         }, 
@@ -62,7 +62,7 @@
             "action" : "comparison",
             "details" : {
                 "symbol" : "lt",
-                "arg1" : "mMRC",
+                "arg1" : "currMmrc",
                 "arg2" : 2
             }
         }, 
@@ -77,17 +77,17 @@
         {
             "action" : "Qomparison",
             "details" : {
-                "arg1" : "CAT",
+                "arg1" : "currCAT",
                 "symbol" : "eq",
-                "arg2" : "CAT"
+                "arg2" : "currCAT"
             }
         }, 
         {
             "action" : "Qomparison",
             "details" : {
-                "arg2" : "mMRC",
-                "arg1" : "mMRC",
-                "symbol" : "in"
+                "arg2" : "currMmrc",
+                "arg1" : "currMmrc",
+                "symbol" : "eq"
             }
         }
     ],
