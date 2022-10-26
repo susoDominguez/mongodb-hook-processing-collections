@@ -1,0 +1,41 @@
+
+{
+    "cigModel" : "tmr",
+    "services" : [ 
+        {
+            "hook" : "DB-HT-OA-merge",
+            "title" : "diabetes, hypertension and osteoarthritis review",
+            "description" : "CDS service providing a care plan which combines, and identifies interactions of, up to three clinical guidelines, that is, diabetes, hypertension and osteoarthritis, for the case where the current patient record has a diagnosis for each of them that is both active and confirmed",
+            "id" : "DB-HT-OA-merge"
+        }, 
+        {
+            "hook" : "multimorbidity-merge",
+            "title" : "generating a multimorbid clinical guideline",
+            "description" : "CDS service providing a personalised care plan which combines any number of clinical guidelines for each active and confirmed diagnosis occurring in the patient record. The care plan also identifies potential interactions among involved clinical guidelines.",
+            "id" : "multimorbidity-merge"
+        }
+    ]
+}
+
+{
+    "cigModel" : "other",
+    "services" : [ 
+        {
+            "hook" : "other-assess",
+            "title" : "COPD careplan select",
+            "description" : "CDS service providing personalised care plan(s) to treat COPD symptoms taking into account existing comorbidites and patient-specific data",
+            "id" : "careplan-review"
+        }
+    ]
+}
+
+{
+    "services" : [ 
+        {
+            "hook" : "copd-assess",
+            "title" : "COPD severity assessment",
+            "description" : "CDS service providing personalised COPD assessment using COPD test results and existing COPD-related clinical data",
+            "id" : "copd-assess"
+        }
+    ]
+}
