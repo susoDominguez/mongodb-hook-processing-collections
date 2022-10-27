@@ -1,4 +1,42 @@
-/* 1 */
+[{
+    "label" : "json-template",
+    "add" : [ 
+        {
+            "parameter" : "id",
+            "fields" : [ 
+                {
+                    "path" : "TMR.guidelineGroup.id"
+                }
+            ]
+        }, 
+        {
+            "parameter" : "interactions",
+            "fields" : [ 
+                {
+                    "path" : "TMR.guidelineGroup.interactions"
+                }
+            ]
+        }, 
+        {
+            "parameter" : "recommendations",
+            "fields" : [ 
+                {
+                    "path" : "TMR.guidelineGroup.recommendations"
+                }
+            ]
+        }
+    ],
+    "body" : {
+        "TMR" : {
+            "guidelineGroup" : {
+                "id" : "",
+                "interactions" : [],
+                "recommendations" : []
+            }
+        }
+    }
+}
+,
 {
     "label" : "argumentation-template",
     "add" : [ 
@@ -123,4 +161,4 @@
             }
         }
     }
-}
+}]

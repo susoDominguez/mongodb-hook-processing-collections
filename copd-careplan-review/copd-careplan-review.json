@@ -1,5 +1,4 @@
-/* 1 */
-{
+[{
     "parameter" : "comorbidities",
     "description": "finds available codes within comorbidities to activate related guidelines",
     "cigInvolved" : [ 
@@ -41,9 +40,7 @@
             ]
         }
     ]
-}
-
-/* 2 */
+},
 {
     "parameter" : "selected_copd_group",
     "description": "GOLD group as selected by user triggers associated subguidelines",
@@ -101,9 +98,7 @@
             ]
         }
     ]
-}
-
-/* 3 */
+},
 {
     "parameter" : "additional__medication_subcigs",
     "description": "selects additional personalised treatments that are not originally part of the selected GOLD group",
@@ -145,7 +140,7 @@
             "action" : "inLhs",
             "details" : {
                 "arg1" : "cds_suggested_drugs",
-                "arg1" : "cds_suggested_drugs"
+                "arg2" : "cds_suggested_drugs"
             }
         }
     ],
@@ -313,9 +308,7 @@
             ]
         }
     ]
-}
-
-/* 5 */
+},
 {
     "parameter" : "smoking_status",
     "description": "query context to find out smoking status of patient",
@@ -350,9 +343,7 @@
             ]
         }
     ]
-}
-
-/* 6 */
+},
 {
     "parameter" : "influenza_immunization",
     "description": "finds influenza immunization codes in hook context",
@@ -388,9 +379,7 @@
             ]
         }
     ]
-}
-
-/* 7 */
+},
 {
     "parameter" : "pneumococcal_immunization",
     "description": "finds codes for pneumococcal codes in the hook context",
@@ -448,9 +437,7 @@
             ]
         }
     ]
-}
-
-/* 8 */
+},
 {
     "parameter" : "patientId",
     "description" : "finds patient identifier",
@@ -463,9 +450,7 @@
             "required" : true
         }
     ]
-}
-
-/* 9 */
+},
 {
     "parameter" : "medications_user_selection",
     "description": "treatments selected by user",
@@ -494,9 +479,7 @@
             }
         }
     ]
-}
-
-/* 10 */
+},
 {
     "parameter" : "additional_selected_meds",
     "description": "treatments additional to the personalised GOLD group",
@@ -711,9 +694,7 @@
             ]
         }
     ]
-}
-
-/* 11 */
+},
 {
     "parameter" : "cds_suggested_preference_order",
     "description": "suggested treatments by cds system",
@@ -726,4 +707,4 @@
             "required" : true
         }
     ]
-}
+}]
