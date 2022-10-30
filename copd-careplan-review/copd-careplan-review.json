@@ -1,6 +1,8 @@
-[{
+/* 1 */
+{
+    "_id" : {"$oid":"63452bbc889cf149c5f78c15"},
     "parameter" : "comorbidities",
-    "description": "finds available codes within comorbidities to activate related guidelines",
+    "description" : "finds available codes within comorbidities to activate related guidelines",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
@@ -18,32 +20,35 @@
             "details" : {
                 "arg1" : "codes",
                 "arg2" : "codes",
-                "termSystem" :"SCT"
+                "termSystem" : "SCT"
             }
         }
     ],
     "constraints" : [ 
         {
             "dataPathRef" : {
-               "codes": 709044004
-        },
+                "codes" : 709044004
+            },
             "outcome" : [ 
                 "subCIG-Ckd"
             ]
         }, 
         {
             "dataPathRef" : {
-                "codes": 49601007
+                "codes" : 49601007
             },
             "outcome" : [ 
                 "subCIG-Cvd"
             ]
         }
     ]
-},
+}
+
+/* 2 */
 {
+    "_id" : {"$oid":"63452bf0889cf149c5f78c44"},
     "parameter" : "selected_copd_group",
-    "description": "GOLD group as selected by user triggers associated subguidelines",
+    "description" : "GOLD group as selected by user triggers associated subguidelines",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
@@ -67,63 +72,61 @@
     "constraints" : [ 
         {
             "dataPathRef" : {
-                "copd_group_code": NumberLong(1097871000000101)
+                "copd_group_code" : NumberLong(1097871000000101)
             },
             "outcome" : [ 
-                "subCIG-Group_A", "subCIG-Core"
-            ]
-        }, 
-        {
-            "dataPathRef" : { 
-                "copd_group_code": NumberLong(1097881000000104)
-        },
-            "outcome" : [ 
-                "subCIG-Group_B", "subCIG-Core"
-            ]
-        }, 
-        {
-            "dataPathRef" : { 
-                "copd_group_code": NumberLong(1097891000000102)
-        },
-            "outcome" : [ 
-                "subCIG-Group_C", "subCIG-Core"
+                "subCIG-Group_A", 
+                "subCIG-Core"
             ]
         }, 
         {
             "dataPathRef" : {
-                "copd_group_code": NumberLong(1097901000000101)
+                "copd_group_code" : NumberLong(1097881000000104)
             },
             "outcome" : [ 
-                "subCIG-Group_D", "subCIG-Core"
+                "subCIG-Group_B", 
+                "subCIG-Core"
+            ]
+        }, 
+        {
+            "dataPathRef" : {
+                "copd_group_code" : NumberLong(1097891000000102)
+            },
+            "outcome" : [ 
+                "subCIG-Group_C", 
+                "subCIG-Core"
+            ]
+        }, 
+        {
+            "dataPathRef" : {
+                "copd_group_code" : NumberLong(1097901000000101)
+            },
+            "outcome" : [ 
+                "subCIG-Group_D", 
+                "subCIG-Core"
             ]
         }
     ]
-},
+}
+
+/* 3 */
 {
-    "parameter" : "additional__medication_subcigs",
-    "description": "selects additional personalised treatments that are not originally part of the selected GOLD group",
+    "_id" : {"$oid":"63452c02889cf149c5f78c57"},
+    "parameter" : "recommendationsDrugsOutsideCopdGroup",
+    "description" : "selects additional personalised treatments that are not originally part of the selected GOLD group",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
     "dataPaths" : [ 
         {
             "label" : "copd_group_clinical_code",
-            "description": "personalised GOLD group",
-            "Jpath" : "context.copdAssessment.entry.resource[code.coding.code='1097861000000108'].valueCodeableConcept.coding.code",
+            "Jpath" : "context.copdAssessment.entry.resource[code.coding.code='1097861000000108'].valueCodeableConcept.coding[].code",
             "typeOf" : "number",
             "required" : true
         }, 
         {
-            "label" : "cds_suggested_drugs",
-            "description": "personalised GOLD group treatments as suggested by cds system",
-            "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code",
-            "typeOf" : "string",
-            "required" : true
-        }, 
-        {
-            "label" : "user_selected_drugs",
-            "description": "personalised GOLD group as selected by user",
-            "Jpath" : "context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding.code",
+            "label" : "allDistinctDrugs",
+            "Jpath" : "$distinct($append(context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code,context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding[].code))",
             "typeOf" : "string",
             "required" : true
         }
@@ -139,179 +142,182 @@
         {
             "action" : "inLhs",
             "details" : {
-                "arg1" : "cds_suggested_drugs",
-                "arg2" : "cds_suggested_drugs"
+                "arg1" : "allDistinctDrugs",
+                "arg2" : "allDistinctDrugs"
             }
         }
     ],
     "constraints" : [ 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":  NumberLong(1097871000000101), 
-            "cds_suggested_drugs":  "Laba"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097871000000101),
+                "allDistinctDrugs" : "Laba"
+            },
             "outcome" : [ 
                 "subCIG-Group_A.Laba"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":  NumberLong(1097871000000101), 
-            "cds_suggested_drugs":  "Lama"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097871000000101),
+                "allDistinctDrugs" : "Lama"
+            },
             "outcome" : [ 
                 "subCIG-Group_A.Lama"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":   NumberLong(1097871000000101), 
-                "cds_suggested_drugs":  "LabaLama"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097871000000101),
+                "allDistinctDrugs" : "LabaLama"
+            },
             "outcome" : [ 
                 "subCIG-Group_A.LabaLama"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":    NumberLong(1097871000000101), 
-            "cds_suggested_drugs":  "LabaLamaIcs"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097871000000101),
+                "allDistinctDrugs" : "LabaLamaIcs"
+            },
             "outcome" : [ 
                 "subCIG-Group_A.LabaLamaIcs"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":    NumberLong(1097871000000101), 
-            "cds_suggested_drugs":  "LabaIcs"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097871000000101),
+                "allDistinctDrugs" : "LabaIcs"
+            },
             "outcome" : [ 
                 "subCIG-Group_A.LabaIcs"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":   NumberLong(1097881000000104), 
-            "cds_suggested_drugs":  "Saba"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097881000000104),
+                "allDistinctDrugs" : "Saba"
+            },
             "outcome" : [ 
                 "subCIG-Group_B.Saba"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":     NumberLong(1097881000000104), 
-            "cds_suggested_drugs":   "Sama"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097881000000104),
+                "allDistinctDrugs" : "Sama"
+            },
             "outcome" : [ 
                 "subCIG-Group_B.Sama"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":   NumberLong(1097881000000104), 
-            "cds_suggested_drugs":  "SabaSama"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097881000000104),
+                "allDistinctDrugs" : "SabaSama"
+            },
             "outcome" : [ 
                 "subCIG-Group_B.SabaSama"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":     NumberLong(1097881000000104), 
-            "cds_suggested_drugs":   "LabaLamaIcs"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097881000000104),
+                "allDistinctDrugs" : "LabaLamaIcs"
+            },
             "outcome" : [ 
                 "subCIG-Group_B.LabaLamaIcs"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":   NumberLong(1097881000000104), 
-            "cds_suggested_drugs":    "LabaIcs"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097881000000104),
+                "allDistinctDrugs" : "LabaIcs"
+            },
             "outcome" : [ 
                 "subCIG-Group_B.LabaIcs"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":   NumberLong(1097891000000102), 
-            "cds_suggested_drugs":   "Saba"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097891000000102),
+                "allDistinctDrugs" : "Saba"
+            },
             "outcome" : [ 
                 "subCIG-Group_C.Saba"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":   NumberLong(1097891000000102), 
-            "cds_suggested_drugs":    "Sama"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097891000000102),
+                "allDistinctDrugs" : "Sama"
+            },
             "outcome" : [ 
                 "subCIG-Group_C.Sama"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":   NumberLong(1097891000000102), 
-            "cds_suggested_drugs":   "SabaSama"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097891000000102),
+                "allDistinctDrugs" : "SabaSama"
+            },
             "outcome" : [ 
                 "subCIG-Group_C.SabaSama"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":   NumberLong(1097891000000102), 
-            "cds_suggested_drugs":   "Laba"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097891000000102),
+                "allDistinctDrugs" : "Laba"
+            },
             "outcome" : [ 
                 "subCIG-Group_C.LabaLamaIcs"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":   NumberLong(1097901000000101), 
-            "cds_suggested_drugs":    "Laba"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097901000000101),
+                "allDistinctDrugs" : "Laba"
+            },
             "outcome" : [ 
                 "subCIG-Group_D.Laba"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":    NumberLong(1097901000000101), 
-            "cds_suggested_drugs":   "Saba"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097901000000101),
+                "allDistinctDrugs" : "Saba"
+            },
             "outcome" : [ 
                 "subCIG-Group_D.Saba"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":   NumberLong(1097901000000101), 
-            "cds_suggested_drugs":   "Sama"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097901000000101),
+                "allDistinctDrugs" : "Sama"
+            },
             "outcome" : [ 
                 "subCIG-Group_D.Sama"
             ]
         }, 
         {
-           "dataPathRef": { 
-            "copd_group_clinical_code":   NumberLong(1097901000000101), 
-            "cds_suggested_drugs":    "SabaSama"
-        },
+            "dataPathRef" : {
+                "copd_group_clinical_code" : NumberLong(1097901000000101),
+                "allDistinctDrugs" : "SabaSama"
+            },
             "outcome" : [ 
                 "subCIG-Group_D.SabaSama"
             ]
         }
     ]
-},
+}
+
+/* 4 */
 {
+    "_id" : {"$oid":"63452c0f889cf149c5f78c64"},
     "parameter" : "smoking_status",
-    "description": "query context to find out smoking status of patient",
+    "description" : "query context to find out smoking status of patient",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
@@ -320,7 +326,9 @@
             "label" : "smoking_status_code",
             "Jpath" : "context.smokingStatus.valueCodeableConcept.coding[].code",
             "typeOf" : "number",
-            "defaultVal" : [8392000],
+            "defaultVal" : [ 
+                8392000
+            ],
             "required" : false
         }
     ],
@@ -335,18 +343,21 @@
     ],
     "constraints" : [ 
         {
-           "dataPathRef": { 
-            "smoking_status_code":  77176002
-        },
+            "dataPathRef" : {
+                "smoking_status_code" : 77176002
+            },
             "outcome" : [ 
                 "subCIG-Smoker"
             ]
         }
     ]
-},
+}
+
+/* 5 */
 {
+    "_id" : {"$oid":"63452c1a889cf149c5f78c6f"},
     "parameter" : "influenza_immunization",
-    "description": "finds influenza immunization codes in hook context",
+    "description" : "finds influenza immunization codes in hook context",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
@@ -364,25 +375,28 @@
             "action" : "Qomparison",
             "details" : {
                 "arg1" : "influenzaStatus",
-                "compare" : "eq",
+                "symbol" : "eq",
                 "arg2" : "influenzaStatus"
             }
         }
     ],
     "constraints" : [ 
         {
-           "dataPathRef": { 
-            "influenzaStatus": "not-done"
-        },
+            "dataPathRef" : {
+                "influenzaStatus" : "not-done"
+            },
             "outcome" : [ 
                 "subCIG-FluVac"
             ]
         }
     ]
-},
+}
+
+/* 6 */
 {
+    "_id" : {"$oid":"63452c29889cf149c5f78c82"},
     "parameter" : "pneumococcal_immunization",
-    "description": "finds codes for pneumococcal codes in the hook context",
+    "description" : "finds codes for pneumococcal codes in the hook context",
     "cigInvolved" : [ 
         "CIG-COPD"
     ],
@@ -413,7 +427,7 @@
             "action" : "Qomparison",
             "details" : {
                 "arg1" : "dateOfBirth",
-                "compare" : "gte",
+                "symbol" : "gte",
                 "arg2" : "dateOfBirth"
             }
         }, 
@@ -421,24 +435,27 @@
             "action" : "Qomparison",
             "details" : {
                 "arg1" : "immunizationStatus",
-                "compare" : "eq",
+                "symbol" : "eq",
                 "arg2" : "immunizationStatus"
             }
         }
     ],
     "constraints" : [ 
         {
-           "dataPathRef": { 
-            "dateOfBirth": 65, 
-            "immunizationStatus": "not-done"
-        },
+            "dataPathRef" : {
+                "dateOfBirth" : 65,
+                "immunizationStatus" : "not-done"
+            },
             "outcome" : [ 
                 "subCIG-PneumnVac"
             ]
         }
     ]
-},
+}
+
+/* 7 */
 {
+    "_id" : {"$oid":"63452c35889cf149c5f78c8d"},
     "parameter" : "patientId",
     "description" : "finds patient identifier",
     "cigInvolved" : [],
@@ -450,10 +467,13 @@
             "required" : true
         }
     ]
-},
+}
+
+/* 8 */
 {
-    "parameter" : "medications_user_selection",
-    "description": "treatments selected by user",
+    "_id" : {"$oid":"63452c43889cf149c5f78c98"},
+    "parameter" : "alternativeTreatmentPathways",
+    "description" : "treatments selected by user",
     "cigInvolved" : [],
     "dataPaths" : [ 
         {
@@ -475,236 +495,24 @@
             "details" : {
                 "symbol" : "arr_diff_nonSymm",
                 "arg1" : "cdsSuggestedMeds",
-                "arg2": "selectedMeds"
+                "arg2" : "selectedMeds"
             }
         }
     ]
-},
+}
+
+/* 9 */
 {
-    "parameter" : "additional_selected_meds",
-    "description": "treatments additional to the personalised GOLD group",
-    "cigInvolved" : [ 
-        "CIG-COPD"
-    ],
-    "dataPaths" : [ 
-        {
-            "label" : "selectedMeds",
-            "Jpath" : "context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding.code",
-            "typeOf" : "string",
-            "required" : true
-        }, 
-        {
-            "label" : "cdsSuggestedMeds",
-            "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code",
-            "typeOf" : "string",
-            "required" : true
-        }, 
-        {
-            "label" : "copd_group_clinical_code",
-            "Jpath" : "context.copdAssessment.entry.resource[code.coding.code='1097861000000108'].valueCodeableConcept.coding.code",
-            "typeOf" : "number",
-            "required" : true
-        }
-    ],
-    "actions" : [ 
-        {
-            "action" : "function",
-            "details" : {
-                "symbol" : "arr_diff_nonSymm",
-                "arg1": "selectedMeds",
-                "arg2": "cdsSuggestedMeds"
-            }
-        }, 
-        {
-            "action" : "inLhs",
-            "details" : {
-                "arg2" : "selectedMeds",
-                "arg1" : "selectedMeds"
-            }
-        }, 
-        {
-            "action" : "inLhs",
-            "details" : {
-                "arg2" : "copd_group_clinical_code",
-                "arg1" : "copd_group_clinical_code"
-            }
-        }
-    ],
-    "constraints" : [ 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code":  NumberLong(1097871000000101), 
-            "selectedMeds": "Laba"
-        },
-            "outcome" : [ 
-                "subCIG-Group_A.Laba"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code":  NumberLong(1097871000000101), 
-            "selectedMeds": "Lama"
-        },
-            "outcome" : [ 
-                "subCIG-Group_A.Lama"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code":  NumberLong(1097871000000101), 
-            "selectedMeds":  "LabaLama"
-        },
-            "outcome" : [ 
-                "subCIG-Group_A.LabaLama"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code":  NumberLong(1097871000000101), 
-            "selectedMeds":  "LabaLamaIcs"
-        },
-            "outcome" : [ 
-                "subCIG-Group_A.LabaLamaIcs"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097871000000101), 
-            "selectedMeds": "LabaIcs"
-        },
-            "outcome" : [ 
-                "subCIG-Group_A.LabaIcs"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097881000000104), 
-            "selectedMeds":   "Saba"
-        },
-            "outcome" : [ 
-                "subCIG-Group_B.Saba"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code":  NumberLong(1097881000000104), 
-            "selectedMeds": "Sama"
-        },
-            "outcome" : [ 
-                "subCIG-Group_B.Sama"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097881000000104), 
-            "selectedMeds": "SabaSama"
-        },
-            "outcome" : [ 
-                "subCIG-Group_B.SabaSama"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097881000000104), 
-            "selectedMeds":  "LabaLamaIcs"
-        },
-            "outcome" : [ 
-                "subCIG-Group_B.LabaLamaIcs"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097881000000104), 
-            "selectedMeds":  "LabaIcs"
-        },
-            "outcome" : [ 
-                "subCIG-Group_B.LabaIcs"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097891000000102), 
-            "selectedMeds":  "Saba"
-        },
-            "outcome" : [ 
-                "subCIG-Group_C.Saba"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097891000000102), 
-            "selectedMeds":   "Sama"
-        },
-            "outcome" : [ 
-                "subCIG-Group_C.Sama"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097891000000102), 
-            "selectedMeds":   "SabaSama"
-        },
-            "outcome" : [ 
-                "subCIG-Group_C.SabaSama"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097891000000102), 
-            "selectedMeds":   "Laba"
-        },
-            "outcome" : [ 
-                "subCIG-Group_C.LabaLamaIcs"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097901000000101), 
-            "selectedMeds": "Laba"
-        },
-            "outcome" : [ 
-                "subCIG-Group_D.Laba"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097901000000101), 
-            "selectedMeds":  "Saba"
-        },
-            "outcome" : [ 
-                "subCIG-Group_D.Saba"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097901000000101), 
-            "selectedMeds":   "Sama"
-        },
-            "outcome" : [ 
-                "subCIG-Group_D.Sama"
-            ]
-        }, 
-        {
-           "dataPathRef": { 
-            "copd_group_clinical_code": NumberLong(1097901000000101), 
-            "selectedMeds":   "SabaSama"
-        },
-            "outcome" : [ 
-                "subCIG-Group_D.SabaSama"
-            ]
-        }
-    ]
-},
-{
-    "parameter" : "cds_suggested_preference_order",
-    "description": "suggested treatments by cds system",
+    "_id" : {"$oid":"63452c4e889cf149c5f78ca5"},
+    "parameter" : "selectedTreatmentPathways",
+    "description" : "list of selected treatments by user",
     "cigInvolved" : [],
     "dataPaths" : [ 
         {
-            "label" : "CdsSuggestedMeds",
-            "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding[].code",
+            "label" : "userSelectedMeds",
+            "Jpath" : "context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding[].code",
             "typeOf" : "string",
             "required" : true
         }
     ]
-}]
+}
