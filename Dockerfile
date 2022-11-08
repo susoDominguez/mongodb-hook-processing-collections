@@ -12,7 +12,7 @@ FROM mongo:4.4.17
 
  COPY ./templates/tmr_templates /tmr_templates
 
- CMD mongoimport  --uri=${URI}/non-cig --collection=copd-assess --drop --file=/copd-assess && \
+ CMD mongoimport  --uri=${URI}/non-cig-db --collection=copd-assess --drop --file=/copd-assess && \
      mongoimport  --uri=${URI}/tmr-db --collection=copd-careplan-review --drop --file=/copd-careplan-review && \
      mongoimport  --uri=${URI}/tmr-db --collection=tmr_templates --drop --file=/tmr_templates && \
      mongoimport  --uri=${URI}/cds-services --collection=cds-services --drop --file=/cds_services
