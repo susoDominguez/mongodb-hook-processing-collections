@@ -111,213 +111,32 @@
 
 /* 3 */
 {
-    "_id" : ObjectId("63452192889cf149c5f781bc"),
-    "parameter" : "additional__medication_subcigs",
-    "description" : "selects additional personalised treatments that are not originally part of the selected GOLD group",
-    "cigInvolved" : [ 
-        "CIG-COPD"
-    ],
-    "dataPaths" : [ 
+    "_id": ObjectId('635a74f45928c80006d34f31'),
+    "parameter": 'alternativeTreatmentPathways',
+    "description": 'personalised COPD treatments, as suggested by the CDS system, from the assessed GOLD group which were not selected by the user',
+    "cigInvolved": [],
+    "dataPaths": [
         {
-            "label" : "copd_group_clinical_code",
-            "description" : "personalised GOLD group",
-            "Jpath" : "context.copdAssessment.entry.resource[code.coding.code='1097861000000108'].valueCodeableConcept.coding.code",
-            "typeOf" : "number",
-            "required" : true
-        }, 
+            label: 'cdsSuggestedMeds',
+            Jpath: 'context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code',
+            typeOf: 'string',
+            required: true
+        },
         {
-            "label" : "cds_suggested_drugs",
-            "description" : "personalised GOLD group treatments as suggested by cds system",
-            "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code",
-            "typeOf" : "string",
-            "required" : true
-        }, 
-        {
-            "label" : "user_selected_drugs",
-            "description" : "personalised GOLD group as selected by user",
-            "Jpath" : "context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding.code",
-            "typeOf" : "string",
-            "required" : true
+            label: 'selectedMeds',
+            Jpath: 'context.copdAssessment.entry.resource[resourceType=\'Bundle\'].entry.resource.code.coding.code',
+            typeOf: 'string',
+            required: true
         }
     ],
-    "actions" : [ 
+    actions: [
         {
-            "action" : "inLhs",
-            "details" : {
-                "arg1" : "copd_group_clinical_code",
-                "arg2" : "copd_group_clinical_code"
+            action: 'function',
+            details: {
+                symbol: 'arr_diff_nonSymm',
+                arg1: 'cdsSuggestedMeds',
+                arg2: 'selectedMeds'
             }
-        }, 
-        {
-            "action" : "inLhs",
-            "details" : {
-                "arg1" : "cds_suggested_drugs",
-                "arg1" : "cds_suggested_drugs"
-            }
-        }
-    ],
-    "constraints" : [ 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097871000000101),
-                "cds_suggested_drugs" : "Laba"
-            },
-            "outcome" : [ 
-                "subCIG-Group_A.Laba"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097871000000101),
-                "cds_suggested_drugs" : "Lama"
-            },
-            "outcome" : [ 
-                "subCIG-Group_A.Lama"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097871000000101),
-                "cds_suggested_drugs" : "LabaLama"
-            },
-            "outcome" : [ 
-                "subCIG-Group_A.LabaLama"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097871000000101),
-                "cds_suggested_drugs" : "LabaLamaIcs"
-            },
-            "outcome" : [ 
-                "subCIG-Group_A.LabaLamaIcs"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097871000000101),
-                "cds_suggested_drugs" : "LabaIcs"
-            },
-            "outcome" : [ 
-                "subCIG-Group_A.LabaIcs"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097881000000104),
-                "cds_suggested_drugs" : "Saba"
-            },
-            "outcome" : [ 
-                "subCIG-Group_B.Saba"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097881000000104),
-                "cds_suggested_drugs" : "Sama"
-            },
-            "outcome" : [ 
-                "subCIG-Group_B.Sama"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097881000000104),
-                "cds_suggested_drugs" : "SabaSama"
-            },
-            "outcome" : [ 
-                "subCIG-Group_B.SabaSama"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097881000000104),
-                "cds_suggested_drugs" : "LabaLamaIcs"
-            },
-            "outcome" : [ 
-                "subCIG-Group_B.LabaLamaIcs"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097881000000104),
-                "cds_suggested_drugs" : "LabaIcs"
-            },
-            "outcome" : [ 
-                "subCIG-Group_B.LabaIcs"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097891000000102),
-                "cds_suggested_drugs" : "Saba"
-            },
-            "outcome" : [ 
-                "subCIG-Group_C.Saba"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097891000000102),
-                "cds_suggested_drugs" : "Sama"
-            },
-            "outcome" : [ 
-                "subCIG-Group_C.Sama"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097891000000102),
-                "cds_suggested_drugs" : "SabaSama"
-            },
-            "outcome" : [ 
-                "subCIG-Group_C.SabaSama"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097891000000102),
-                "cds_suggested_drugs" : "Laba"
-            },
-            "outcome" : [ 
-                "subCIG-Group_C.LabaLamaIcs"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097901000000101),
-                "cds_suggested_drugs" : "Laba"
-            },
-            "outcome" : [ 
-                "subCIG-Group_D.Laba"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097901000000101),
-                "cds_suggested_drugs" : "Saba"
-            },
-            "outcome" : [ 
-                "subCIG-Group_D.Saba"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097901000000101),
-                "cds_suggested_drugs" : "Sama"
-            },
-            "outcome" : [ 
-                "subCIG-Group_D.Sama"
-            ]
-        }, 
-        {
-            "dataPathRef" : {
-                "copd_group_clinical_code" : NumberLong(1097901000000101),
-                "cds_suggested_drugs" : "SabaSama"
-            },
-            "outcome" : [ 
-                "subCIG-Group_D.SabaSama"
-            ]
         }
     ]
 }
@@ -480,32 +299,16 @@
 
 /* 8 */
 {
-    "_id" : ObjectId("634521d6889cf149c5f78211"),
-    "parameter" : "medications_user_selection",
-    "description" : "treatments selected by user",
-    "cigInvolved" : [],
-    "dataPaths" : [ 
+    _id: ObjectId('635a73c85928c80006d34f2f'),
+    parameter: 'selectedTreatmentPathways',
+    description: 'selected treatments by pulmonologist',
+    cigInvolved: [],
+    dataPaths: [
         {
-            "label" : "selectedMeds",
-            "Jpath" : "context.copdAssessment.entry.resource[resourceType='Bundle'].entry.resource.code.coding.code",
-            "typeOf" : "string",
-            "required" : true
-        }, 
-        {
-            "label" : "cdsSuggestedMeds",
-            "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding.code",
-            "typeOf" : "string",
-            "required" : true
-        }
-    ],
-    "actions" : [ 
-        {
-            "action" : "function",
-            "details" : {
-                "symbol" : "arr_diff_nonSymm",
-                "arg1" : "cdsSuggestedMeds",
-                "arg2" : "selectedMeds"
-            }
+            label: 'userSelectedMeds',
+            Jpath: 'context.copdAssessment.entry.resource[resourceType=\'Bundle\'].entry.resource.code.coding.code',
+            typeOf: 'string',
+            required: true
         }
     ]
 }
@@ -540,11 +343,11 @@
     ],
     "actions" : [ 
         {
-            "action" : "function",
-            "details" : {
-                "symbol" : "arr_diff_nonSymm",
-                "arg1" : "selectedMeds",
-                "arg2" : "cdsSuggestedMeds"
+            action: 'function',
+            details: {
+                symbol: 'arr_union',
+                arg1: 'selectedMeds',
+                arg2: 'cdsSuggestedMeds'
             }
         }, 
         {
@@ -730,16 +533,16 @@
 
 /* 10 */
 {
-    "_id" : ObjectId("634521ee889cf149c5f78233"),
-    "parameter" : "cds_suggested_preference_order",
-    "description" : "suggested treatments by cds system",
-    "cigInvolved" : [],
-    "dataPaths" : [ 
+    _id: ObjectId('636d3454fd16b9ae68775c6d'),
+    parameter: 'encounterId',
+    description: 'finds encounter identifier',
+    cigInvolved: [],
+    dataPaths: [
         {
-            "label" : "CdsSuggestedMeds",
-            "Jpath" : "context.suggestedTreatmentsByCdsService.entry.resource.code.coding[].code",
-            "typeOf" : "string",
-            "required" : true
+            label: 'patientId',
+            Jpath: 'context.encounterId',
+            typeOf: 'string',
+            required: true
         }
     ]
 }
