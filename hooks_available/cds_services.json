@@ -1,41 +1,20 @@
-
-[{
-    "cigModel" : "tmr",
-    "services" : [ 
-        {
-            "hook" : "copd-careplan-review",
-            "title" : "COPD treatment planning review",
-            "description" : "provides one or more personalised, conflict-safe COPD care plan proposals. Each care plan identifies the interactions that were found while adding patient-specific GOLD-based recommendations and the actions applied to mitigate them.",
-            "id" : "copd-careplan-review"
-        }, 
-        {
-            "hook" : "copd-assess",
-            "title" : "COPD severity assessment",
-            "description" : "CDS service providing personalised COPD assessment using COPD symptom severity measurements and existing COPD-related clinical data",
-            "id" : "copd-assess"
-        }
-    ]
-}
-,
 {
-    "cigModel" : "other",
-    "services" : [ 
-        {
-            "hook" : "other-assess",
-            "title" : "COPD careplan select",
-            "description" : "CDS service providing personalised care plan(s) to treat COPD symptoms taking into account existing comorbidites and patient-specific data",
-            "id" : "careplan-review"
-        }
-    ]
+  "services": [
+    {
+      "hook": "multimorbidity-interactions-detection",
+      "title": "multimorbidity interactions detection CDS service",
+      "description": "An example of a CDS service to provide support on detecting potential interactions between guidelines in multimorbidity contexts",
+      "id": "multimorbidity-interactions-detection",
+      "prefetch": {},
+      "usageRequirements": "none"
+    },
+    {
+      "hook": "diabetes-management",
+      "title": "diabetes continuous therapy management CDS service",
+      "description": "An example of a CDS service to provide support on continuous diabetes prevention therapy to patients (lipid lowering drug therapy), considering characteristics such as type of diabetes, age, risk factors, among others",
+      "id": "primary-prevention-review",
+      "prefetch": {},
+      "usageRequirements": "none"
+    }
+  ]
 }
-,
-{
-    "services" : [ 
-        {
-            "hook" : "copd-assess",
-            "title" : "COPD severity assessment",
-            "description" : "CDS service providing personalised COPD assessment using COPD symptom severity measurements and existing COPD-related clinical data",
-            "id" : "copd-assess"
-        }
-    ]
-}]
